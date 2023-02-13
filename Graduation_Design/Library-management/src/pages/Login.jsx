@@ -1,7 +1,7 @@
 import { Button, Form, Input } from 'antd';
 import { useEffect, useCallback } from 'react';
 import "../assets/css/login.scss"
-
+import { login } from '../API/AxiosURL';
 
 export default function Login() {
     // 设置表单数据
@@ -44,10 +44,11 @@ export default function Login() {
 
     const onCheck = async () => {
         try {
-            const values = await form.validateFields(['username','password']);
+            const values = await form.validateFields();
             if(values.username && values.password){
                 // 登录
-
+                let res = await login(values)
+                console.log(res);
             }
         } catch (errorInfo) {
             // 验证不通过
@@ -92,7 +93,7 @@ export default function Login() {
                         </Form.Item>
 
                         <Form.Item wrapperCol={{ offset: 8, span: 16 }} style={{ marginTop: 20 }}>
-                            <Button type="primary" htmlType="submit" onClick={onCheck}>
+                            <Button type="primary" onClick={onCheck}>
                                 登录
                             </Button>
                         </Form.Item>
