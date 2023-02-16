@@ -1,5 +1,5 @@
 import axios from "axios"
-
+import { message } from 'antd';
 
 axios.interceptors.request.use(function (config) {
     console.log(config);
@@ -29,6 +29,17 @@ function getAxios(url,data = {},res,rej){
     axios.get(url,{
         params:data
     }).then(( {data} )=>{
+        if(data.code){
+            message.success({
+                content:data.value,
+                duration:1
+            })
+        }else{
+            message.error({
+                content:data.value,
+                duration:1
+            })
+        }
         res(data)
     }).catch((err)=>{
         rej(err)
@@ -38,6 +49,17 @@ function getAxios(url,data = {},res,rej){
 // post获取
 function postAxios(url,data = {},res,rej){
     axios.post(url,data).then(( {data} )=>{
+        if(data.code){
+            message.success({
+                content:data.value,
+                duration:1
+            })
+        }else{
+            message.error({
+                content:data.value,
+                duration:1
+            })
+        }
         res(data)
     }).catch((err)=>{
         rej(err)

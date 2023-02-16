@@ -2,10 +2,12 @@ import { Button, Form, Input } from 'antd';
 import { useEffect, useCallback } from 'react';
 import "../assets/css/login.scss"
 import { login } from '../API/AxiosURL';
+import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
     // 设置表单数据
     const [form] = Form.useForm();
+    const navigate = useNavigate();
 
     // 获取表单数据
     useEffect(() => {
@@ -42,17 +44,13 @@ export default function Login() {
         })
     }, [])
 
-    const onCheck = async () => {
-        try {
-            const values = await form.validateFields();
-            if(values.username && values.password){
-                // 登录
-                let res = await login(values)
-                console.log(res);
+    const onFinish = async (values) => {
+        if(values.username && values.password){
+            let res = await login(values)
+            if(res.code){
+                // 跳转主页
+                navigate("/home")
             }
-        } catch (errorInfo) {
-            // 验证不通过
-            console.log('Failed:', errorInfo);
         }
     };
 
@@ -67,6 +65,7 @@ export default function Login() {
                         labelCol={{ span: 7 }}
                         wrapperCol={{ span: 14 }}
                         style={{ maxWidth: 450 }}
+                        onFinish={onFinish}
                     >
                         <Form.Item
                             label="账号"
@@ -93,7 +92,7 @@ export default function Login() {
                         </Form.Item>
 
                         <Form.Item wrapperCol={{ offset: 8, span: 16 }} style={{ marginTop: 20 }}>
-                            <Button type="primary" onClick={onCheck}>
+                            <Button type="primary" htmlType="submit">
                                 登录
                             </Button>
                         </Form.Item>
