@@ -1,9 +1,12 @@
 const express = require("express")
 const router = express.Router();
+const {
+    setLogin
+} = require("../module/manage/handleLogin")
 
-router.post("/submit",(req,res)=>{
-    console.log(req,res);
-    res.send("123")
+router.post("/submit", async (req,res)=>{
+    let result = await setLogin(req.body)
+    res.send(result)
 })
 
 module.exports = router
