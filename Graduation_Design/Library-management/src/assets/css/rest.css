@@ -44,7 +44,7 @@ input:focus,select:focus,textarea:focus {
 
 /* 定义全局样式 */
 .fr{
-	float: left;
+	float: right;
 }
 
 .fl{

@@ -1,16 +1,65 @@
-.home{
-
-    .ant-layout{
+.home {
+    // 布局
+    .ant-layout {
         color: #fff;
+
+        .ant-layout-header {
+            color: #fff;
+        }
+
+        .ant-layout-sider {
+            height: 100vh;
+            background-color: #001529;
+        }
+
+        .ant-layout-header {
+            height: 50px;
+            line-height: 50px;
+            user-select: none;
+            display: flex;
+            justify-content: right;
+
+            .welcome {
+                font-size: 16px;
+                font-style: italic;
+                margin-right: 8px;
+            }
+
+            .name_color {
+                color: #1677FF;
+            }
+
+            .exit {
+                margin: 0 20px 8px;
+                cursor: pointer;
+            }
+        }
     }
 
-    .ant-layout-header{
-        color: #fff;
+    // 主题内容
+    .ant-layout-content{
+        background-color: #fff;
+        color: black;
+        // 天气
+        .display_content{
+            height: 42px;
+            line-height: 42px;
+            user-select: none;
+            border-bottom: 1px solid #f5f5f5;
+
+            .title{
+                width: 20%;
+                text-align: center;
+                font-size: 19px;
+                font-weight: 600;
+                font-family: "微软雅黑";
+                font-style: italic;
+            }
+
+            .weather{
+
+            }
+        }
     }
 
-   .ant-layout .ant-layout-sider{
-        height: 100vh;
-        background-color: #001529;
-    } 
 }
-
