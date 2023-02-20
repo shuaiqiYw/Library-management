@@ -3,6 +3,7 @@ import { useEffect, useCallback } from 'react';
 import "../assets/css/login.scss"
 import { login } from '../API/AxiosURL';
 import { useNavigate } from 'react-router-dom'
+import { setSession } from '../API/session';
 
 export default function Login() {
     // 设置表单数据
@@ -48,6 +49,7 @@ export default function Login() {
     const onFinish = async (values) => {
         if(values.username && values.password){
             let res = await login(values)
+            setSession("key",res.data)
             if(res.code){
                 // 跳转主页
                 navigate("/home")
