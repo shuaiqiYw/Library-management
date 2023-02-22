@@ -1,17 +1,21 @@
-import { Layout, Modal } from 'antd';
+import { Layout, Modal, Button } from 'antd';
 import { useEffect, useState, useMemo } from 'react';
 import "../assets/css/home.scss"
 import { weather } from '../API/AxiosURL';
 import SiderContent from '../Components/sider/SiderContent';
-import { getSession } from '../API/session';
+import { getSession, Re } from '../API/session';
 import { useNavigate } from 'react-router-dom';
 
 const { Header, Sider, Content } = Layout;
 
 export default function Home() {
     let [weat,setWeat] = useState({});
+    const navigate = useNavigate()
 
     let loginName = useMemo(()=>getSession("key").loginName,[])
+    if(!loginName){
+        navigate("/")
+    }
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const handleExit = () => {
@@ -31,6 +35,12 @@ export default function Home() {
         })
         
     },[])
+
+    // 确定退出
+    const confirm = () => {
+        navigate("/")
+        Re("key")
+    }
 
     return (
         <div className='home'>
@@ -57,7 +67,20 @@ export default function Home() {
                     </Content>
                 </Layout>
             </Layout>
-            <Modal title="提示" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <Modal 
+             title="提示" 
+             open={isModalOpen} 
+             onOk={handleOk} 
+             onCancel={handleCancel}
+             footer={[
+                <Button key="back" onClick={handleCancel}>
+                    返回
+                </Button>,
+                <Button key="submit" type="primary" onClick={confirm}>
+                    确定
+                </Button>
+             ]}
+            >
                 <p>是否确认退出系统？</p>
             </Modal>
         </div>
