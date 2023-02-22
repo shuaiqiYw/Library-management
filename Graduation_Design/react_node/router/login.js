@@ -13,11 +13,12 @@ router.post("/submit", async (req,res)=>{
 
 // 天气
 router.get("/weather", async (req,res)=>{
-    // 城市
-    let {data} = await axios.get("http://ip-api.com/json/?lang=zh-CN");
-    let region = `${data.regionName}-${data.city}`
-    // 天气
-    await axios.get(`https://v0.yiketianqi.com/api?unescape=1&version=v91&appid=43656176&appsecret=I42og6Lm&ext=&cityid=&city=${encodeURIComponent(data.city)}`)
+    // 城市   https://ipapi.co/json/
+    // http://ip-api.com/json/?lang=zh-CN
+    // let {data} = await axios.get("https://ipapi.co/json/");
+    // let region = `${data.regionName}-${data.city}`
+    // 天气    https://v0.yiketianqi.com/api?unescape=1&version=v91&appid=43656176&appsecret=I42og6Lm&ext=&cityid=&city=${encodeURIComponent(data.city)}
+    await axios.get(`https://v0.yiketianqi.com/api?unescape=1&version=v91&appid=43656176&appsecret=I42og6Lm&ext=&cityid=&city=武汉`)
     .then(({data})=>{
         res.send({code:1,data:{
             value:data.data[0],
