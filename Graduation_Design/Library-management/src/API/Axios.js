@@ -4,6 +4,8 @@ import { message } from 'antd';
 axios.interceptors.request.use(function (config) {
     console.log(config);
     // 在发送请求之前做些什么
+    //携带cookie
+    config.withCredentials = true
     return config;
   }, function (error) {
     // 对请求错误做些什么

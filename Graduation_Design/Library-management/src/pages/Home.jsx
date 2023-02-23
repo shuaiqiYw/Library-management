@@ -1,46 +1,29 @@
 import { Layout, Modal, Button } from 'antd';
-import { useEffect, useState, useMemo } from 'react';
 import "../assets/css/home.scss"
-import { weather } from '../API/AxiosURL';
 import SiderContent from '../Components/sider/SiderContent';
-import { getSession, Re } from '../API/session';
-import { useNavigate } from 'react-router-dom';
+// ----------------
+import useHome from '../hooks/useHome';
 
 const { Header, Sider, Content } = Layout;
 
 export default function Home() {
-    let [weat,setWeat] = useState({});
-    const navigate = useNavigate()
 
-    let loginName = useMemo(()=>getSession("key").loginName,[])
-    if(!loginName){
-        navigate("/")
-    }
+    let [weat,loginName,confirm,isModalOpen,setIsModalOpen] = useHome();
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    // header退出
     const handleExit = () => {
         setIsModalOpen(true);
+        console.log(weat);
     };
+    // modal确定
     const handleOk = () => {
         setIsModalOpen(false);
     };
+    // modal取消
     const handleCancel = () => {
         setIsModalOpen(false);
     };
 
-    // 请求天气与地址
-    useEffect(()=>{
-        weather().then(({data})=>{
-            setWeat(data)
-        })
-        
-    },[])
-
-    // 确定退出
-    const confirm = () => {
-        navigate("/")
-        Re("key")
-    }
 
     return (
         <div className='home'>
@@ -56,12 +39,12 @@ export default function Home() {
                     </Header>
                     <Content>
                         <div className='display_content'>
-                            <p className='fl title'>{loginName}阅览</p>
+                            <p className='fl title'>{loginName}正在阅览中...</p>
                             <p className='fr weather'>
-                                {weat.city}：
-                                {weat.value?.date}
-                                （{weat.value?.week}）
-                                {weat.value?.narrative}
+                                {/* {weat.data.city}：
+                                {weat.data.value?.date}
+                                （{weat.data.value?.week}）
+                                {weat.data.value?.narrative} */}
                             </p>
                         </div>
                     </Content>
