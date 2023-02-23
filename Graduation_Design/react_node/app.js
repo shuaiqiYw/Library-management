@@ -3,6 +3,7 @@ const app = express();
 
 // 配置
 app.use(require("./module/plugin/cors"))
+app.use(require("./module/plugin/session"))
 app.use(express.static("./public"))
 app.use(express.urlencoded({extends:false}))
 app.use(express.json())
