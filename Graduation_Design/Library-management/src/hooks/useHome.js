@@ -17,7 +17,6 @@ export default function useHome() {
     // 请求天气与地址
     useEffect(()=>{
         weather().then((data)=>{
-            console.log(data);
             setWeat(data)
         })
     },[])
