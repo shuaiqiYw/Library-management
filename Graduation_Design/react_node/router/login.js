@@ -7,16 +7,14 @@ const {
 
 
 // 退出session路由
-router.post("/removeexit", (req,res)=>{
-    console.log(2324);
-    res.session.adminRoot = ""
+router.get("/removeexit", (req,res)=>{
+    req.session.adminRoot = ""
     res.send({code:0,value:"退出session",data:{}})
 })
 
 
 // 免登录路由
 router.post("/avoidLand", (req,res)=>{
-    console.log(req.session.adminRoot);
     if(req.session.adminRoot){
         res.send({code:1,value:"免登录测试",data:req.session.adminRoot})
     }else{
