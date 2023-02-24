@@ -3,6 +3,7 @@ import "../assets/css/home.scss"
 import SiderContent from '../Components/sider/SiderContent';
 // ----------------
 import useHome from '../hooks/useHome';
+import { Outlet } from 'react-router-dom';
 
 const { Header, Sider, Content } = Layout;
 
@@ -13,7 +14,6 @@ export default function Home() {
     // header退出
     const handleExit = () => {
         setIsModalOpen(true);
-        console.log(weat);
     };
     // modal确定
     const handleOk = () => {
@@ -23,7 +23,6 @@ export default function Home() {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-
 
     return (
         <div className='home'>
@@ -41,11 +40,14 @@ export default function Home() {
                         <div className='display_content'>
                             <p className='fl title'>{loginName}正在阅览中...</p>
                             <p className='fr weather'>
-                                {/* {weat.data.city}：
+                                {/* {weat.data.city}： 
                                 {weat.data.value?.date}
                                 （{weat.data.value?.week}）
                                 {weat.data.value?.narrative} */}
                             </p>
+                        </div>
+                        <div>
+                            <Outlet></Outlet>
                         </div>
                     </Content>
                 </Layout>

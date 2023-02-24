@@ -11,8 +11,10 @@ import {
     AuditOutlined,
     ProfileOutlined
 } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 // 侧边栏内容
 import { Menu } from 'antd';
+
 function getItem(label, key, icon, children, type) {
     return {
         key,
@@ -24,9 +26,9 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-    getItem('首页', '1', <HomeOutlined />),
-    getItem('图书', 'sub1', <AppstoreOutlined />, [
-        getItem('图书管理', '4', <AuditOutlined />),
+    getItem(<Link to="page">首页</Link>, '1', <HomeOutlined />),
+    getItem("图书", 'sub1', <AppstoreOutlined />, [
+        getItem(<Link to="good">图书管理</Link>, '4', <AuditOutlined />),
         getItem('分类管理', '5', <ProfileOutlined />)
     ]),
     getItem('用户管理', '2', <UserOutlined />),

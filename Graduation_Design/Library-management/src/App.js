@@ -17,7 +17,7 @@ function App() {
           navigate("/")
         }else{
           setSession("key",data.data.data)
-          navigate("/home")
+          navigate("/home/page")
         }
       })
       // eslint-disable-next-line
