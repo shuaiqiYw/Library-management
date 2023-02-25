@@ -3,13 +3,14 @@ import "../assets/css/home.scss"
 import SiderContent from '../Components/sider/SiderContent';
 // ----------------
 import useHome from '../hooks/useHome';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 const { Header, Sider, Content } = Layout;
 
 export default function Home() {
 
     let [weat,loginName,confirm,isModalOpen,setIsModalOpen] = useHome();
+    const local = useLocation()
 
     // header退出
     const handleExit = () => {
@@ -38,15 +39,15 @@ export default function Home() {
                     </Header>
                     <Content>
                         <div className='display_content'>
-                            <p className='fl title'>{loginName}正在阅览中...</p>
-                            <p className='fr weather'>
+                            <p className='fl title'>{local.state.name}</p>
+                            <p className='fr'>
                                 {/* {weat.data.city}： 
                                 {weat.data.value?.date}
                                 （{weat.data.value?.week}）
                                 {weat.data.value?.narrative} */}
                             </p>
                         </div>
-                        <div>
+                        <div className='center_page'>
                             <Outlet></Outlet>
                         </div>
                     </Content>

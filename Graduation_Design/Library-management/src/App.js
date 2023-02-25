@@ -17,7 +17,11 @@ function App() {
           navigate("/")
         }else{
           setSession("key",data.data.data)
-          navigate("/home/page")
+          navigate("/home/page",{
+            state:{
+              name:"首页"
+            }
+          })
         }
       })
       // eslint-disable-next-line

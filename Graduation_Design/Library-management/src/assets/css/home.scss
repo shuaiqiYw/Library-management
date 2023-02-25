@@ -36,7 +36,7 @@
         }
     }
 
-    // 主题内容
+    // 主体内容
     .ant-layout-content{
         background-color: #fff;
         color: black;
@@ -56,8 +56,23 @@
                 font-style: italic;
             }
 
-            .weather{
+        }
+    }
 
+    
+    .center_page{
+        background-color: #eee;
+
+        // 分类管理
+        .goods{
+            padding: 20px 0 0 0;
+
+            .ant-card{
+                padding: 0 10px;
+            }
+
+            .ant-card-head-wrapper{
+                padding: 10px 0;
             }
         }
     }

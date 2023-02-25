@@ -26,10 +26,10 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-    getItem(<Link to="page">首页</Link>, '1', <HomeOutlined />),
+    getItem(<Link to="page" state={{name:"首页"}}>首页</Link>, '1', <HomeOutlined />),
     getItem("图书", 'sub1', <AppstoreOutlined />, [
-        getItem(<Link to="good">图书管理</Link>, '4', <AuditOutlined />),
-        getItem('分类管理', '5', <ProfileOutlined />)
+        getItem(<Link to="good" state={{name:"图书分类"}}>图书分类</Link>, '4', <AuditOutlined />),
+        getItem(<Link to="account" state={{name:"图书管理"}}>图书管理</Link>, '5', <ProfileOutlined />)
     ]),
     getItem('用户管理', '2', <UserOutlined />),
     getItem('角色管理', '3', <RedditOutlined />),
