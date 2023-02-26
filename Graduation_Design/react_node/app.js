@@ -9,6 +9,7 @@ app.use(express.urlencoded({extends:false}))
 app.use(express.json())
 //配置子路由
 app.use("/login",require("./router/login"))
+app.use("/goods",require("./router/goods"))
 //数据库
 require("./mongodb/mongoose")
 
