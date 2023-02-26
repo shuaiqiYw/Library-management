@@ -39,7 +39,7 @@ export default function Home() {
                     </Header>
                     <Content>
                         <div className='display_content'>
-                            <p className='fl title'>{local.state.name}</p>
+                            <p className='fl title'>{local.state?.name}</p>
                             <p className='fr'>
                                 {/* {weat.data.city}： 
                                 {weat.data.value?.date}

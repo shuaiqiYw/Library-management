@@ -4,6 +4,8 @@ import Home from "../pages/Home"
 import HomePage from "../pages/HomePage";
 import GoodsAcca from "../pages/goods/GoodsAcca"
 import GoodsAccount from "../pages/goods/GoodsAccount";
+// 重定向
+import Redirect from "../hooks/useRouter"
 
 const route = [
     {
@@ -27,6 +29,10 @@ const route = [
                 element:<GoodsAccount />
             }
         ]
+    },
+    {
+        path: "*",
+        element: <Redirect to="/home/page" />
     }
 ]
 

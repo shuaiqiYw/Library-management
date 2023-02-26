@@ -1,33 +1,32 @@
 import React from "react";
-import { Button, Modal, Select, Input } from "antd";
-import { useState, useRef } from "react";
+import { Button, Modal, Input } from "antd";
+import { useState } from "react";
+import { addAcount } from "../../API/AxiosURL";
 
-let num = "123"
-export default function GoodsAdd() {
+export default function GoodsAdd({setArr,arr}) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const inputVal = useRef()
-    
+    let valAccount = null
 
     const showModal = () => {
       setIsModalOpen(true);
     };
   
     // 确认
-    const handleOk = () => {
+    const handleOk = async () => {
+      let {data} = await addAcount({valAccount})
+      setArr([data,...arr])
       setIsModalOpen(false);
-      let inputValue = inputVal.current.input.value
-      console.log(num,inputValue);
     };
   
     const handleCancel = () => {
       setIsModalOpen(false);
     };
 
-    // 下拉框
-    const handleChange = (value) => {
-        num = value
-    };
+    // 输入框
+    const handleInputChange = (e) => {
+        valAccount = e.target.value
+    }
 
     return (
         <div>
@@ -45,33 +44,7 @@ export default function GoodsAdd() {
                     </Button>
                 ]}
             >
-                <Select
-                    defaultValue="lucy"
-                    style={{
-                        width: "100%",
-                        marginTop: "12px"
-                    }}
-                    onChange={handleChange}
-                    options={[
-                        {
-                        value: 'jack',
-                        label: 'Jack',
-                        },
-                        {
-                        value: 'lucy',
-                        label: 'Lucy',
-                        },
-                        {
-                        value: 'Yiminghe',
-                        label: 'yiminghe',
-                        },
-                        {
-                        value: 'disabled',
-                        label: 'Disabled',
-                        },
-                    ]}
-                />
-                <Input placeholder="请输入类别" style={{ marginTop: "25px" }} ref={inputVal} />
+                <Input placeholder="请输入类别" style={{ marginTop: "25px" }} onChange={handleInputChange} />
             </Modal>
         </div>
     )

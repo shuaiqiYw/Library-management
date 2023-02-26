@@ -13,6 +13,10 @@ export const avoidLand = () => createAxios("post", url+"/login/avoidLand")
 // home组件退出session
 export const exitSession = () => createAxios("get", url+"/login/removeexit")
 
+// 添加分类
+export const addAcount = (value) => createAxios("post", url+"/goods/add",value)
+// 请求所有分类
+export const getAcount = () => createAxios("get", url+"/goods/getAcount")
 
 
 
