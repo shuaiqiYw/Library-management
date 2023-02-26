@@ -30,9 +30,9 @@ export default function GoodsAdd({setArr,arr}) {
 
     return (
         <div>
-            <Button type="primary"onClick={showModal}>添加分类</Button>
+            <Button type="primary"onClick={showModal}>新增类别</Button>
             <Modal 
-                title="添加分类" 
+                title="新增类别" 
                 open={isModalOpen} 
                 onCancel={handleCancel}
                 footer={[
@@ -44,7 +44,7 @@ export default function GoodsAdd({setArr,arr}) {
                     </Button>
                 ]}
             >
-                <Input placeholder="请输入类别" style={{ marginTop: "25px" }} onChange={handleInputChange} />
+                <Input placeholder="请输入新增图书类别" style={{ marginTop: "25px" }} onChange={handleInputChange} />
             </Modal>
         </div>
     )
