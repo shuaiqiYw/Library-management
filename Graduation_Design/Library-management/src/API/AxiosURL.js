@@ -17,7 +17,8 @@ export const exitSession = () => createAxios("get", url+"/login/removeexit")
 export const addAcount = (value) => createAxios("post", url+"/goods/add",value)
 // 请求所有分类
 export const getAcount = () => createAxios("get", url+"/goods/getAcount")
-
+// 分类-分页请求
+export const getPaging = (value) => createAxios("get", url+"/goods/getPaging",value)
 
 
 

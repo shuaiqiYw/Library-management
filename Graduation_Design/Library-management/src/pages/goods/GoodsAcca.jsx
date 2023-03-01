@@ -1,48 +1,33 @@
 import { useState, useEffect } from "react";
-import { Card, Table } from 'antd';
+import { Card, Table, Tag } from 'antd';
 import GoodsAdd from "../../Components/goods/GoodsAdd";
-import { getAcount } from "../../API/AxiosURL";
+import { getAcount, getPaging } from "../../API/AxiosURL";
+import "../../assets/css/account.scss"
 
+let len = 0
 export default function GoodsAcca() {
 
     const { Column } = Table;
 
-    const data = [
-        {
-            key: '1',
-            firstName: 'John',
-            lastName: 'Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-            tags: ['nice', 'developer'],
-        },
-        {
-            key: '2',
-            firstName: 'Jim',
-            lastName: 'Green',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-            tags: ['loser'],
-        },
-        {
-            key: '3',
-            firstName: 'Joe',
-            lastName: 'Black',
-            age: 32,
-            address: 'Sydney No. 1 Lake Park',
-            tags: ['cool', 'teacher'],
-        },
-    ];
-
     // 设置分类展示
-    let [arr, setArr] = useState([{}])
+    let [arr, setArr] = useState([])
 
     // 获取分类
     useEffect(() => {
         getAcount().then(({ data }) => {
-            setArr(data)
+            setArr(data.data)
+            len = data.len
         })
     }, [])
+
+    // 分页点击获取
+    const handlePage = async (val) => {
+        let result = await getPaging({
+            current:val.current,
+            pageSize:val.pageSize
+        })
+        setArr(result.data)
+    }
 
     return (
         <div className="goods">
@@ -52,10 +37,26 @@ export default function GoodsAcca() {
             >
                 <Table 
                     dataSource={arr}
-                    rowKey={(row)=>{return row._id}}
+                    pagination={{total:len}}
+                    onChange={handlePage}
                 >
                     <Column title="类别" dataIndex="accountName" />
-                    <Column title="操作" dataIndex="address" />
+                    <Column 
+                        title="操作" 
+                        dataIndex="address" 
+                        render={(_,val)=>{
+                            return (
+                                <>
+                                    <Tag color="blue">
+                                        修改分类名
+                                    </Tag>
+                                    <Tag color="red">
+                                        删除分类
+                                    </Tag>
+                                </>
+                            )
+                        }}
+                    />
                 </Table>
             </Card>
         </div>
