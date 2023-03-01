@@ -2,7 +2,8 @@ const express = require("express")
 const router = express.Router();
 const {
     addGoodAccount,
-    getAcount
+    getAcount,
+    getPage
 } 
  = require("../module/manage/handleGoods")
 
@@ -17,5 +18,12 @@ router.get("/getAcount", async (req,res)=>{
     let result = await getAcount();
     res.send(result)
 })
+
+// 分类-分页请求
+router.get("/getPaging", async (req,res)=>{
+    let result = await getPage(req.query);
+    res.send(result)
+})
+
 
 module.exports = router
