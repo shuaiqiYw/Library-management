@@ -19,6 +19,9 @@ export const addAcount = (value) => createAxios("post", url+"/goods/add",value)
 export const getAcount = () => createAxios("get", url+"/goods/getAcount")
 // 分类-分页请求
 export const getPaging = (value) => createAxios("get", url+"/goods/getPaging",value)
+// 分类-修改分类名
+export const updateAccountName = (value) => createAxios("post", url+"/goods/updateName",value)
+
 
 
 
