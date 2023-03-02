@@ -3,7 +3,8 @@ const router = express.Router();
 const {
     addGoodAccount,
     getAcount,
-    getPage
+    getPage,
+    updateName
 } 
  = require("../module/manage/handleGoods")
 
@@ -25,5 +26,10 @@ router.get("/getPaging", async (req,res)=>{
     res.send(result)
 })
 
+// 修改分类名路由
+router.post("/updateName", async (req,res)=>{
+    let result = await updateName(req.body);
+    res.send(result)
+})
 
 module.exports = router

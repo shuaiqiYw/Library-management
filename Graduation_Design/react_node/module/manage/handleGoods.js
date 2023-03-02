@@ -28,8 +28,16 @@ const getPage = async ({current, pageSize}) => {
     return {code:1, value: "分页获取成功", data: result}
 }
 
+// 修改分类名
+const updateName = async ({id,str}) => {
+    let data = await mongoAccount.updateOne({_id:id},{accountName:str})
+    // let data = mongoAccount.find({_id:id})
+    return {code:1, value: "修改分类", data: data}
+}
+
 module.exports = {
     addGoodAccount,
     getAcount,
-    getPage
+    getPage,
+    updateName
 }
