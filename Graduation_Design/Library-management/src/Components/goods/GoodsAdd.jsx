@@ -4,9 +4,10 @@ import { useState } from "react";
 import { addAcount } from "../../API/AxiosURL";
 
 export default function GoodsAdd({setArr,arr}) {
+    // let valAccount = null
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    let valAccount = null
+    const [valAccount,setValAccount] = useState('')
 
     const showModal = () => {
       setIsModalOpen(true);
@@ -21,11 +22,13 @@ export default function GoodsAdd({setArr,arr}) {
   
     const handleCancel = () => {
       setIsModalOpen(false);
+      setValAccount('')
     };
 
     // 输入框
     const handleInputChange = (e) => {
-        valAccount = e.target.value
+        // valAccount = e.target.value
+        setValAccount(e.target.value)
     }
 
     return (
@@ -44,7 +47,7 @@ export default function GoodsAdd({setArr,arr}) {
                     </Button>
                 ]}
             >
-                <Input placeholder="请输入新增图书类别" style={{ marginTop: "25px" }} onChange={handleInputChange} />
+                <Input placeholder="请输入新增图书类别" style={{ marginTop: "25px" }} onChange={handleInputChange} value={valAccount} />
             </Modal>
         </div>
     )
