@@ -30,14 +30,21 @@ const getPage = async ({current, pageSize}) => {
 
 // 修改分类名
 const updateName = async ({id,str}) => {
-    let data = await mongoAccount.updateOne({_id:id},{accountName:str})
-    // let data = mongoAccount.find({_id:id})
-    return {code:1, value: "修改分类", data: data}
+    await mongoAccount.updateOne({_id:id},{accountName:str})
+    let data = await mongoAccount.find({_id:id})
+    return {code:1, value: "修改分类名成功", data: data}
+}
+
+const deleteName = async ({id}) => {
+    await mongoAccount.deleteOne({_id:id})
+    let data = await mongoAccount.find({})
+    return {code:1, value: "删除分类名成功", data: data}
 }
 
 module.exports = {
     addGoodAccount,
     getAcount,
     getPage,
-    updateName
+    updateName,
+    deleteName
 }

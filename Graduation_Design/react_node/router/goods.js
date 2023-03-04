@@ -4,7 +4,8 @@ const {
     addGoodAccount,
     getAcount,
     getPage,
-    updateName
+    updateName,
+    deleteName
 } 
  = require("../module/manage/handleGoods")
 
@@ -29,6 +30,12 @@ router.get("/getPaging", async (req,res)=>{
 // 修改分类名路由
 router.post("/updateName", async (req,res)=>{
     let result = await updateName(req.body);
+    res.send(result)
+})
+
+// 删除分类名路由
+router.post("/deleteName", async (req,res)=>{
+    let result = await deleteName(req.body);
     res.send(result)
 })
 
