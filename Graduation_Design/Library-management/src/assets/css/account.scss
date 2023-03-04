@@ -1,11 +1,15 @@
 .goods{
     cursor: pointer;
+    user-select: none;
 
     .ant-table{
         min-height: 605px;
     }
 
-    
+}
+
+.ant-popconfirm-message-icon{
+    display: none;
 }
 
 .ClassifyInput{

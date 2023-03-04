@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { Card, Table, Tag, Popover, Input, Button   } from 'antd';
+import { Card, Table, Tag, Popconfirm, Input, Button   } from 'antd';
 import GoodsAdd from "../../Components/goods/GoodsAdd";
-import { getAcount, getPaging, updateAccountName } from "../../API/AxiosURL";
+import { getAcount, getPaging, updateAccountName, delAccountName } from "../../API/AxiosURL";
 import "../../assets/css/account.scss"
 
 let len = 0
@@ -13,7 +13,6 @@ function AmendClassifyName ({handleView}){
     const confirmAmend = () => {
         let value = inpRef.current.input.value
         handleView(value)
-
     }
 
     return (
@@ -52,20 +51,16 @@ export default function GoodsAcca() {
     // 修改arr数据，改变页面视图
     const handleView = async(value,str) => {
         let {data} = await updateAccountName({id:value._id,str})
-        console.log(data);
-
-        let middleArr = [...arr]
-        setArr(
-            middleArr.map(item=>{
-                if(item._id === data[0]._id){
-                    item.accountName = str
-                    return item
-                }else{
-                    return item
-                }
-            })
-        )
+        let res = data[0]
+        let newArr = arr.filter((item) => {return item._id !== res._id})
+        setArr([res,...newArr])
         
+    }
+
+    // 确认删除分类
+    const confirmDel = async (val) => {
+        let {data} = await delAccountName({id:val._id})
+        setArr([...data])
     }
 
     return (
@@ -78,24 +73,33 @@ export default function GoodsAcca() {
                     dataSource={arr}
                     pagination={{total:len}}
                     onChange={handlePage}
+                    rowKey={(record)=>{return record._id;}}
                 >
                     <Column title="类别" dataIndex="accountName" />
                     <Column 
                         title="操作" 
-                        dataIndex="address" 
+                        dataIndex="address"
                         render={(_,val)=>{
                             return (
                                 <>
                                     <Tag color="blue">
-                                        <Popover
+                                        <Popconfirm
                                             title={<AmendClassifyName handleView={handleView.bind(null,val)}/>}
                                             trigger="click"
                                         >
                                             修改分类名
-                                        </Popover>
+                                        </Popconfirm>
                                     </Tag>
                                     <Tag color="red">
-                                        删除分类
+                                        <Popconfirm
+                                            title="是否删除此分类？"
+                                            trigger="click"
+                                            okText="确认"
+                                            cancelText="取消"
+                                            onConfirm={confirmDel.bind(null,val)}
+                                        >
+                                            删除分类
+                                        </Popconfirm>
                                     </Tag>
                                 </>
                             )

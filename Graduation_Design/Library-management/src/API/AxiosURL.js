@@ -21,6 +21,8 @@ export const getAcount = () => createAxios("get", url+"/goods/getAcount")
 export const getPaging = (value) => createAxios("get", url+"/goods/getPaging",value)
 // 分类-修改分类名
 export const updateAccountName = (value) => createAxios("post", url+"/goods/updateName",value)
+// 分类-删除分类名
+export const delAccountName = (value) => createAxios("post", url+"/goods/deleteName",value)
 
 
 
