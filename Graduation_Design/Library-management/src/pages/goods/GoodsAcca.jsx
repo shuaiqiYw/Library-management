@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Card, Table, Tag, Popconfirm, Input, Button   } from 'antd';
+import { Card, Table, Tag, Popover, Input, Button   } from 'antd';
 import GoodsAdd from "../../Components/goods/GoodsAdd";
 import { getAcount, getPaging, updateAccountName } from "../../API/AxiosURL";
 import "../../assets/css/account.scss"
@@ -19,8 +19,8 @@ function AmendClassifyName ({handleView}){
     return (
         <>
             <p>修改分类名</p>
-            <Input className="ClassifyInput" ref={inpRef}></Input>
-            <Button type="primary" onClick={confirmAmend}>确认</Button>
+            <Input className="ClassifyInput" ref={inpRef} placeholder="请输入"></Input>
+            <Button type="primary" onClick={confirmAmend} className="ClassifyOk">确认</Button>
         </>
     )
 }
@@ -87,11 +87,12 @@ export default function GoodsAcca() {
                             return (
                                 <>
                                     <Tag color="blue">
-                                        <Popconfirm
+                                        <Popover
                                             title={<AmendClassifyName handleView={handleView.bind(null,val)}/>}
+                                            trigger="click"
                                         >
                                             修改分类名
-                                        </Popconfirm>
+                                        </Popover>
                                     </Tag>
                                     <Tag color="red">
                                         删除分类
