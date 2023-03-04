@@ -18,6 +18,7 @@ export default function GoodsAdd({setArr,arr}) {
       let {data} = await addAcount({valAccount})
       setArr([data,...arr])
       setIsModalOpen(false);
+      setValAccount('')
     };
   
     const handleCancel = () => {
