@@ -41,10 +41,16 @@ const deleteName = async ({id}) => {
     return {code:1, value: "删除分类名成功", data: data}
 }
 
+const getAcountAll = async () => {
+    let data = await mongoAccount.find({})
+    return {code:1, value: "获取分类成功", data: data}
+}
+
 module.exports = {
     addGoodAccount,
     getAcount,
     getPage,
     updateName,
-    deleteName
+    deleteName,
+    getAcountAll
 }

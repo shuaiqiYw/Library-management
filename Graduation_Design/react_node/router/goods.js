@@ -5,7 +5,8 @@ const {
     getAcount,
     getPage,
     updateName,
-    deleteName
+    deleteName,
+    getAcountAll
 } 
  = require("../module/manage/handleGoods")
 
@@ -36,6 +37,12 @@ router.post("/updateName", async (req,res)=>{
 // 删除分类名路由
 router.post("/deleteName", async (req,res)=>{
     let result = await deleteName(req.body);
+    res.send(result)
+})
+
+// 获取所有分类
+router.get("/getAcountAll", async (req,res)=>{
+    let result = await getAcountAll();
     res.send(result)
 })
 
