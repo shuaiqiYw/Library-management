@@ -1,6 +1,6 @@
-import React from "react";
+import { useEffect, useState } from "react";
 // import { useState } from "react";
-// import { addAcount } from "../../API/AxiosURL";
+import { getAcountAll } from "../../API/AxiosURL";
 import { Link } from "react-router-dom";
 import "../../assets/css/account.scss"
 import "../../router/index"
@@ -9,7 +9,9 @@ import {
     Card,
     Form,
     Input,
+    Select
 } from 'antd';
+const { TextArea } = Input;
 const formItemLayout = {
     labelCol: {
         xs: {
@@ -28,9 +30,30 @@ const formItemLayout = {
         },
     },
 };
+// 初始数据
+const initObj = {
+    belongsToTheCategory: "",
+    bookName: "",
+    bookDescription: "",
+}
 export default function NewlyIncreasedBook() {
 
+    const [allClass,setallClass] = useState([])
 
+    const handleChange = (value) => {
+        console.log(allClass);
+    };
+
+    // 请求所有分类
+    useEffect(()=>{
+        getAcountAll().then(({data})=>{
+            setallClass(data)
+        })
+    },[])
+
+    const onChange = (e) => {
+        console.log('Change:', e.target.value);
+    };
 
     return (
         <div className="goods">
@@ -40,14 +63,25 @@ export default function NewlyIncreasedBook() {
             >
                 <Form
                     {...formItemLayout}
-                    style={{
-                        maxWidth: 600,
-                    }}
                 >
                     <Form.Item
                         label="所属类别"
                     >
-                        <Input placeholder="请输入" />
+                        <Select
+                            placeholder="请选择"
+                            style={{
+                                width: "100%",
+                            }}
+                            onChange={handleChange}
+                            options={
+                                allClass.map(item => {
+                                    return {
+                                        value: item._id,
+                                        label: item.accountName
+                                    }
+                                })
+                            }
+                        />
                     </Form.Item>
 
                     <Form.Item label="图书名称" >
@@ -57,10 +91,10 @@ export default function NewlyIncreasedBook() {
                     <Form.Item
                         label="图书描述"
                     >
-                        <Input placeholder="请输入" />
+                        <TextArea showCount maxLength={200} onChange={onChange} placeholder="请输入" />
                     </Form.Item>
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit" style={{width:"200px"}}>
                             提交
                         </Button>
                     </Form.Item>
