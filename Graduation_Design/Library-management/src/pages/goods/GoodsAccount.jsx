@@ -1,8 +1,9 @@
 import React from "react";
-import { Card, Table } from 'antd';
+import { Card, Table, Button } from 'antd';
 import BorrowManagement from "../../Components/goods/BorrowManagement"
 import "../../assets/css/account.scss"
-
+import { Link } from "react-router-dom";
+import "../../router/index"
 
 
 export default function GoodsAccount() {
@@ -15,7 +16,8 @@ export default function GoodsAccount() {
         <div className="goods">
             <Card
                 size="small"
-                extra={<BorrowManagement />}
+                title={<BorrowManagement />}
+                extra={<Button type="primary"><Link to="/home/addBooks">新增图书</Link></Button>}
             >
                 <Table 
                     dataSource={arr}

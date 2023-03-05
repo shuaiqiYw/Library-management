@@ -31,7 +31,7 @@ export default function BorrowManagement() {
                 ]}
             />
             <Input className="searchBook" placeholder="请输入"></Input>
-            <Button type="primary">搜素</Button>
+            <Button type="primary">搜索</Button>
         </div>
     )
 }

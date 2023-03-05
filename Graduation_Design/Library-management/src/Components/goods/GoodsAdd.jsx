@@ -34,7 +34,7 @@ export default function GoodsAdd({setArr,arr}) {
 
     return (
         <div>
-            <Button type="primary"onClick={showModal}>新增类别</Button>
+            <Button type="primary" onClick={showModal}>新增类别</Button>
             <Modal 
                 title="新增类别" 
                 open={isModalOpen} 

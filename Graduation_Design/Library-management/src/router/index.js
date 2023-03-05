@@ -4,6 +4,7 @@ import Home from "../pages/Home"
 import HomePage from "../pages/HomePage";
 import GoodsAcca from "../pages/goods/GoodsAcca"
 import GoodsAccount from "../pages/goods/GoodsAccount";
+import NewlyIncreasedBook from "../pages/goods/NewlyIncreasedBook";
 // 重定向
 import Redirect from "../hooks/useRouter"
 
@@ -27,6 +28,10 @@ const route = [
             {
                 path: "account",
                 element:<GoodsAccount />
+            },
+            {
+                path:"addBooks",
+                element:<NewlyIncreasedBook />
             }
         ]
     },
