@@ -61,7 +61,15 @@ const addNewBook = async ({classify, bookName, describe}) => {
     return {code:1, value: "添加图书成功", data: {}}
 }
 
-
+const searchBook = async ({selectValue, inputValue}) => {
+    let data = {}
+    if(selectValue === "classify"){
+        data = await mongoBookList.find({classify:inputValue})
+    }else{
+        data = await mongoBookList.find({bookName:inputValue})
+    }
+    return {code:1, value: "搜索成功", data: data}
+}
 
 module.exports = {
     addGoodAccount,
@@ -71,5 +79,6 @@ module.exports = {
     deleteName,
     getAcountAll,
     getBooksList,
-    addNewBook
+    addNewBook,
+    searchBook
 }

@@ -8,7 +8,8 @@ const {
     deleteName,
     getAcountAll,
     getBooksList,
-    addNewBook
+    addNewBook,
+    searchBook
 } 
  = require("../module/manage/handleGoods")
 
@@ -56,8 +57,13 @@ router.get("/getBooksList", async (req,res)=>{
 
 // 新增图书
 router.post("/addNewBook", async (req,res)=>{
-    console.log(req.body);
     let result = await addNewBook(req.body);
+    res.send(result)
+})
+
+// 搜索图书
+router.post("/searchBook", async (req,res)=>{
+    let result = await searchBook(req.body);
     res.send(result)
 })
 
