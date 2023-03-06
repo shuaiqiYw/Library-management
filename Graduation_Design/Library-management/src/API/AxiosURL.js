@@ -30,6 +30,8 @@ export const getAcountAll = () => createAxios("get", url+"/goods/getAcountAll")
 export const getBooksList = () => createAxios("get", url+"/goods/getBooksList")
 // 借阅管理-新增图书  提交
 export const addNewBook = (value) => createAxios("post", url+"/goods/addNewBook",value)
+// 借阅管理-搜索图书
+export const searchBook = (value) => createAxios("post", url+"/goods/searchBook",value)
 
 
 

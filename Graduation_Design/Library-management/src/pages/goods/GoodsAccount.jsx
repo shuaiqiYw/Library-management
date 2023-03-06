@@ -22,7 +22,7 @@ export default function GoodsAccount() {
         <div className="goods">
             <Card
                 size="small"
-                title={<BorrowManagement />}
+                title={<BorrowManagement setBookList={setBookList}/>}
                 extra={<Button type="primary"><Link to="/home/addBooks">新增图书</Link></Button>}
             >
                 <Table 
