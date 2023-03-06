@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Table, Button, Tag } from 'antd';
+import { Card, Table, Button, Tag, Tooltip } from 'antd';
 import { getBooksList } from "../../API/AxiosURL"
 import BorrowManagement from "../../Components/goods/BorrowManagement"
 import "../../assets/css/account.scss"
@@ -32,7 +32,15 @@ export default function GoodsAccount() {
                 >
                     <Column title="分类" dataIndex="classify" />
                     <Column title="书名" dataIndex="bookName" />
-                    <Column title="描述" dataIndex="describe" />
+                    <Column title="描述" dataIndex="describe" 
+                        render={(text, record, index)=>{
+                            return (
+                                <>
+                                    <Tooltip title={record.describe} placement="bottomLeft">{record.describe}</Tooltip>      
+                                </>
+                            )
+                        }}    
+                    />
                     <Column title="状态" dataIndex="status" 
                         render={(text, record, index)=>{
                             if(record.status){
