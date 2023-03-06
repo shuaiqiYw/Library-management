@@ -26,6 +26,10 @@ export const delAccountName = (value) => createAxios("post", url+"/goods/deleteN
 
 // 借阅管理-新增图书  获取所有分类
 export const getAcountAll = () => createAxios("get", url+"/goods/getAcountAll")
+// 借阅管理-新增图书  获取所有图书
+export const getBooksList = () => createAxios("get", url+"/goods/getBooksList")
+// 借阅管理-新增图书  提交
+export const addNewBook = (value) => createAxios("post", url+"/goods/addNewBook",value)
 
 
 

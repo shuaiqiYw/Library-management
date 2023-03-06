@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 // import { useState } from "react";
 import { getAcountAll } from "../../API/AxiosURL";
 import { Link } from "react-router-dom";
+import { addNewBook } from "../../API/AxiosURL"
 import "../../assets/css/account.scss"
 import "../../router/index"
 import {
@@ -32,17 +33,18 @@ const formItemLayout = {
 };
 // 初始数据
 const initObj = {
-    belongsToTheCategory: "",
+    classify: "",
     bookName: "",
-    bookDescription: "",
+    describe: "",
 }
 export default function NewlyIncreasedBook() {
 
     const [allClass,setallClass] = useState([])
+    const [form] = Form.useForm();
 
-    const handleChange = (value) => {
-        console.log(allClass);
-    };
+    useEffect(() => {
+        form.validateFields([]);
+    }, [form]);
 
     // 请求所有分类
     useEffect(()=>{
@@ -51,9 +53,12 @@ export default function NewlyIncreasedBook() {
         })
     },[])
 
-    const onChange = (e) => {
-        console.log('Change:', e.target.value);
-    };
+    // 提交表单
+    const onFinish = (values) => {
+        addNewBook(values).then((res)=>{
+            form.resetFields()
+        })
+    }
 
     return (
         <div className="goods">
@@ -63,20 +68,31 @@ export default function NewlyIncreasedBook() {
             >
                 <Form
                     {...formItemLayout}
+                    form={form}
+                    onFinish={onFinish}
+                    initialValues={initObj}
                 >
                     <Form.Item
                         label="所属类别"
+                        name="classify"
+                        rules={[
+                            {
+                              required: true,
+                              message: '请输入所属类别',
+                            },
+                        ]}
                     >
                         <Select
+                            allowClear={true}
+                            showSearch
                             placeholder="请选择"
                             style={{
                                 width: "100%",
                             }}
-                            onChange={handleChange}
                             options={
                                 allClass.map(item => {
                                     return {
-                                        value: item._id,
+                                        value: item.accountName,
                                         label: item.accountName
                                     }
                                 })
@@ -84,16 +100,32 @@ export default function NewlyIncreasedBook() {
                         />
                     </Form.Item>
 
-                    <Form.Item label="图书名称" >
+                    <Form.Item 
+                        name="bookName"
+                        label="图书名称" 
+                        rules={[
+                            {
+                              required: true,
+                              message: '请输入图书名称',
+                            },
+                        ]}
+                    >
                         <Input placeholder="请输入" />
                     </Form.Item>
 
                     <Form.Item
+                        name="describe"
                         label="图书描述"
+                        rules={[
+                            {
+                              required: true,
+                              message: '请输入图书描述',
+                            },
+                        ]}
                     >
-                        <TextArea showCount maxLength={200} onChange={onChange} placeholder="请输入" />
+                        <TextArea showCount maxLength={200} placeholder="请输入" />
                     </Form.Item>
-                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                    <Form.Item wrapperCol={{ offset: 11, span: 16 }}>
                         <Button type="primary" htmlType="submit" style={{width:"200px"}}>
                             提交
                         </Button>

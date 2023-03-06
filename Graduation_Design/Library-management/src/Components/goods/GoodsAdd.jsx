@@ -1,11 +1,11 @@
 import React from "react";
-import { Button, Modal, Input } from "antd";
+import { Button, Modal, Input, message } from "antd";
 import { useState } from "react";
 import { addAcount } from "../../API/AxiosURL";
 
 export default function GoodsAdd({setArr,arr}) {
     // let valAccount = null
-
+    const [messageApi, contextHolder] = message.useMessage();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [valAccount,setValAccount] = useState('')
 
@@ -15,6 +15,13 @@ export default function GoodsAdd({setArr,arr}) {
   
     // 确认
     const handleOk = async () => {
+      if(!valAccount){
+        messageApi.open({
+            type: 'error',
+            content: '请输入类别！',
+        });
+        return;
+      } ;
       let {data} = await addAcount({valAccount})
       setArr([data,...arr])
       setIsModalOpen(false);
@@ -35,6 +42,7 @@ export default function GoodsAdd({setArr,arr}) {
     return (
         <div>
             <Button type="primary" onClick={showModal}>新增类别</Button>
+            {contextHolder}
             <Modal 
                 title="新增类别" 
                 open={isModalOpen} 
