@@ -1,4 +1,5 @@
 const mongoAccount = require("../../mongodb/mongoAccount");
+const mongoBookList = require("../../mongodb/mongoBookList");
 
 // 添加分类
 const addGoodAccount = async ({valAccount},id) => {
@@ -46,11 +47,29 @@ const getAcountAll = async () => {
     return {code:1, value: "获取分类成功", data: data}
 }
 
+const getBooksList = async () => {
+    let data = await mongoBookList.find({})
+    return {code:1, value: "获取图书成功", data: data}
+}
+
+const addNewBook = async ({classify, bookName, describe}) => {
+    await mongoBookList.create({
+        classify:classify,
+        bookName:bookName,
+        describe:describe
+    })
+    return {code:1, value: "添加图书成功", data: {}}
+}
+
+
+
 module.exports = {
     addGoodAccount,
     getAcount,
     getPage,
     updateName,
     deleteName,
-    getAcountAll
+    getAcountAll,
+    getBooksList,
+    addNewBook
 }

@@ -6,7 +6,9 @@ const {
     getPage,
     updateName,
     deleteName,
-    getAcountAll
+    getAcountAll,
+    getBooksList,
+    addNewBook
 } 
  = require("../module/manage/handleGoods")
 
@@ -43,6 +45,19 @@ router.post("/deleteName", async (req,res)=>{
 // 获取所有分类
 router.get("/getAcountAll", async (req,res)=>{
     let result = await getAcountAll();
+    res.send(result)
+})
+
+// 获取所有图书
+router.get("/getBooksList", async (req,res)=>{
+    let result = await getBooksList();
+    res.send(result)
+})
+
+// 新增图书
+router.post("/addNewBook", async (req,res)=>{
+    console.log(req.body);
+    let result = await addNewBook(req.body);
     res.send(result)
 })
 
