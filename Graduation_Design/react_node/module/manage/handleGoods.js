@@ -36,39 +36,70 @@ const updateName = async ({id,str}) => {
     return {code:1, value: "修改分类名成功", data: data}
 }
 
+// 删除分类名
 const deleteName = async ({id}) => {
     await mongoAccount.deleteOne({_id:id})
     let data = await mongoAccount.find({})
     return {code:1, value: "删除分类名成功", data: data}
 }
 
+// 获取所有分类
 const getAcountAll = async () => {
     let data = await mongoAccount.find({})
     return {code:1, value: "获取分类成功", data: data}
 }
 
+// 获取所有图书列表
 const getBooksList = async () => {
-    let data = await mongoBookList.find({})
-    return {code:1, value: "获取图书成功", data: data}
+    let result = await mongoBookList.find({})
+    let len = result.length
+    let data = result.splice(0,10)
+    return {code:1, value: "获取图书成功", data: {
+        data:data,
+        len:len
+    }}
 }
 
+// 添加新图书
 const addNewBook = async ({classify, bookName, describe}) => {
-    await mongoBookList.create({
+    let bol = await mongoBookList.findOne({classify: classify,bookName:bookName});
+    if(bol) return {code:0, value: "已存在", data: {}}
+    let data = await mongoBookList.create({
         classify:classify,
         bookName:bookName,
         describe:describe
     })
-    return {code:1, value: "添加图书成功", data: {}}
+    return {code:1, value: "添加图书成功", data: data}
 }
 
+// 根据条件查询图书
 const searchBook = async ({selectValue, inputValue}) => {
     let data = {}
-    if(selectValue === "classify"){
-        data = await mongoBookList.find({classify:inputValue})
+    if(inputValue === ""){
+        return getBooksList()
     }else{
-        data = await mongoBookList.find({bookName:inputValue})
+        if(selectValue === "classify"){
+            data = await mongoBookList.find({classify:inputValue})
+        }else{
+            data = await mongoBookList.find({bookName:inputValue})
+        }
     }
-    return {code:1, value: "搜索成功", data: data}
+    return {code:1, value: "搜索成功", data:data}
+}
+
+// 分页获取图书
+const getBookPage = async ({current, pageSize}) => {
+    let num = current * pageSize - pageSize
+    let result = await mongoBookList.find({},{},{skip:num,limit:pageSize})
+    return {code:1, value: "搜索成功", data:result}
+}
+
+// 借阅归还
+const borrowBack = async ({_id,status}) => {
+    let msg = status ? "归还成功" : "借阅成功"
+    await mongoBookList.updateOne({_id:_id},{status:!status})
+    let data = await mongoBookList.find({_id:_id})
+    return {code:1, value: msg, data:data}
 }
 
 module.exports = {
@@ -80,5 +111,7 @@ module.exports = {
     getAcountAll,
     getBooksList,
     addNewBook,
-    searchBook
+    searchBook,
+    getBookPage,
+    borrowBack
 }

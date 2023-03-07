@@ -9,7 +9,9 @@ const {
     getAcountAll,
     getBooksList,
     addNewBook,
-    searchBook
+    searchBook,
+    getBookPage,
+    borrowBack
 } 
  = require("../module/manage/handleGoods")
 
@@ -64,6 +66,18 @@ router.post("/addNewBook", async (req,res)=>{
 // 搜索图书
 router.post("/searchBook", async (req,res)=>{
     let result = await searchBook(req.body);
+    res.send(result)
+})
+
+// 分页获取图书
+router.get("/getBookPage", async (req,res)=>{
+    let result = await getBookPage(req.query);
+    res.send(result)
+})
+
+// 借阅归还
+router.post("/borrowBack", async (req,res)=>{
+    let result = await borrowBack(req.body);
     res.send(result)
 })
 
