@@ -1,22 +1,28 @@
 import React, { useRef } from "react";
 import { Select, Input, Button } from "antd";
-// import { useState } from "react";
 import { searchBook } from "../../API/AxiosURL";
 
 import "../../assets/css/borrowManagement.scss"
 
-export default function BorrowManagement({setBookList}) {
+export default function BorrowManagement({setBookList,setLen,flagFun}) {
     
     const inputVal = useRef()
     let selectValue = 'classify'
 
     const seekBook = () => {
+        flagFun(false)
         const param = {
             selectValue: selectValue,
             inputValue:inputVal.current.input.value
         }
         searchBook(param).then(({data}) => {
+            if(!inputVal.current.input.value) {
+                setBookList(data.data)
+                setLen(data.len)
+                return;
+            }
             setBookList(data)
+            setLen(data.length)
         })
     }
 
@@ -43,7 +49,7 @@ export default function BorrowManagement({setBookList}) {
                     }
                 ]}
             />
-            <Input className="searchBook" placeholder="请输入" ref={inputVal}></Input>
+            <Input className="searchBook" placeholder="请输入" ref={inputVal} allowClear={true}></Input>
             <Button type="primary" onClick={seekBook}>搜索</Button>
         </div>
     )
