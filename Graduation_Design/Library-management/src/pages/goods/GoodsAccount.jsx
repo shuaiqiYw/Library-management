@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Table, Button, Tag, Tooltip, Popconfirm } from 'antd';
 import { getBooksList, getBookPage, borrowBack  } from "../../API/AxiosURL"
 import BorrowManagement from "../../Components/goods/BorrowManagement"
+// import "../../assets/css/borrowManagement.scss"
 import "../../assets/css/account.scss"
 import { Link } from "react-router-dom";
 import "../../router/index"
@@ -49,7 +50,7 @@ export default function GoodsAccount() {
     }
 
     return (
-        <div className="goods">
+        <div className="goods borrowManagement">
             <Card
                 size="small"
                 title={<BorrowManagement setBookList={setBookList} setLen={setLen} flagFun={flagFun}/>}
@@ -64,6 +65,7 @@ export default function GoodsAccount() {
                     <Column title="分类" dataIndex="classify" />
                     <Column title="书名" dataIndex="bookName" />
                     <Column title="简介" dataIndex="describe" 
+                        ellipsis={true}
                         render={(text, record, index)=>{
                             return (
                                 <>
@@ -106,7 +108,7 @@ export default function GoodsAccount() {
                                         disabled={record.status}
                                         onConfirm={() => confirmHandle(record)}
                                     >
-                                        <Button style={{color:"#389e0d",padding: "2px 4px"}} disabled={record.status}>借阅</Button>
+                                        <Button style={{color:"#389e0d",padding: "0px 10px"}} disabled={record.status}>借阅</Button>
                                     </Popconfirm>
                                     <Popconfirm
                                         title="你确认归还吗？"
@@ -116,7 +118,7 @@ export default function GoodsAccount() {
                                         disabled={!record.status}
                                         onConfirm={() => confirmHandle(record)}
                                     >
-                                        <Button style={{marginLeft:"12px",color:"#8c8c8c",padding: "2px 4px"}} disabled={!record.status}>归还</Button>
+                                        <Button style={{marginLeft:"12px",color:"#8c8c8c",padding: "0px 10px"}} disabled={!record.status}>归还</Button>
                                     </Popconfirm>
                                 </>
                             )
