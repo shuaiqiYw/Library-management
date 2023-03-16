@@ -5,6 +5,8 @@ import HomePage from "../pages/HomePage";
 import GoodsAcca from "../pages/goods/GoodsAcca"
 import GoodsAccount from "../pages/goods/GoodsAccount";
 import NewlyIncreasedBook from "../pages/goods/NewlyIncreasedBook";
+import UserManagement from "../pages/UserManagement";
+import RoleManagement from "../pages/RoleManagement";
 // 重定向
 import Redirect from "../hooks/useRouter"
 
@@ -33,10 +35,14 @@ const route = [
                 path:"addBooks",
                 element:<NewlyIncreasedBook />
             },
-            // {
-            //     path:"user",
-            //     element:<User/>
-            // }
+            {
+                path:"user",
+                element:<UserManagement />
+            },
+            {
+                path:"role",
+                element:<RoleManagement />
+            }
         ]
     },
     {

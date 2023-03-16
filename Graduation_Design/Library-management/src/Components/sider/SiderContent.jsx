@@ -31,8 +31,8 @@ const items = [
         getItem(<Link to="good" state={{name:"图书分类"}}>图书分类</Link>, '4', <AuditOutlined />),
         getItem(<Link to="account" state={{name:"借阅管理"}}>借阅管理</Link>, '5', <ProfileOutlined />)
     ]),
-    getItem('用户', '2', <UserOutlined />),
-    getItem('管理员', '3', <RedditOutlined />),
+    getItem(<Link to="user" state={{name:"用户管理"}}>用户管理</Link>, '2', <UserOutlined />),
+    getItem(<Link to="role" state={{name:"角色管理"}}>角色管理</Link>, '3', <RedditOutlined />),
     getItem('图形管理', 'sub2', <FundOutlined />, [
         getItem('柱形图', '6', <BarChartOutlined />),
         getItem('折线图', '7', <StockOutlined />),
