@@ -38,15 +38,8 @@ export default function GoodsAccount() {
 
     // 借阅，归还 请求后视图更新
     const confirmHandle = (record) => {
-        borrowBack(record).then(({data})=>{
-            let newList = [...bookList]
-            newList.forEach(item => {
-                if(item._id === data[0]._id){
-                    item.status = data[0].status
-                }
-            })
-            setBookList([...newList])
-        })
+        console.log(111);
+       
     }
 
     return (
@@ -100,25 +93,16 @@ export default function GoodsAccount() {
                         render={(text, record, index)=>{
                             return (
                                 <>
+                                    <Button type="primary" style={{padding: "0px 10px"}}><Link to="/home/addBooks">编辑</Link></Button>
                                     <Popconfirm
-                                        title="你确认借阅吗？"
-                                        description="借阅之后请在15天后归还，否则将受到罚款！"
-                                        okText="确认"
-                                        cancelText="取消"
-                                        disabled={record.status}
-                                        onConfirm={() => confirmHandle(record)}
-                                    >
-                                        <Button style={{color:"#389e0d",padding: "0px 10px"}} disabled={record.status}>借阅</Button>
-                                    </Popconfirm>
-                                    <Popconfirm
-                                        title="你确认归还吗？"
-                                        description="归还之后，5日内不可重复借阅此书！"
+                                        title="你确认下架此书吗？"
+                                        description="下架之后读者将无法借阅此书！"
                                         okText="确认"
                                         cancelText="取消"
                                         disabled={!record.status}
                                         onConfirm={() => confirmHandle(record)}
                                     >
-                                        <Button style={{marginLeft:"12px",color:"#8c8c8c",padding: "0px 10px"}} disabled={!record.status}>归还</Button>
+                                        <Button type="default" style={{marginLeft:"12px",color:"#8c8c8c",padding: "0px 10px"}}>下架</Button>
                                     </Popconfirm>
                                 </>
                             )
