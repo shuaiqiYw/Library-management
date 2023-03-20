@@ -34,7 +34,9 @@ export const addNewBook = (value) => createAxios("post", url+"/goods/addNewBook"
 export const searchBook = (value) => createAxios("post", url+"/goods/searchBook",value)
 // 借阅管理- 分页
 export const getBookPage = (value) => createAxios("get", url+"/goods/getBookPage",value)
-// 借阅管理- 
+
+// 角色管理 --获取所有管理员角色
+export const getRoleList = () => createAxios("get", url+"/role/getRoleList")
 
 
 

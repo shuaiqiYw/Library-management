@@ -1,11 +1,8 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { Button, Card, Table, Modal, Form, Input } from 'antd'
+import { getRoleList } from '../API/AxiosURL'
 
-/**
-* @author
-* @function 
-**/
 
 const { Column } = Table
 const formItemLayout = {
@@ -31,15 +28,23 @@ const initObj = {}
 export default function RoleManagement() {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [arr, setArr] = useState([])
     const [form] = Form.useForm();
-    let arr = []
 
+    // useEffect(() => {
+    //     form.validateFields([]);
+    // }, [form]);
+
+    // 模拟生命周期--挂载前
     useEffect(() => {
-        form.validateFields([]);
-    }, [form]);
+        getRoleList().then(({data}) => {
+            setArr(data)
+        })
+    },[]);
 
     // 提交表单
-    const onFinish = (values) => {
+    const onFinish = (value) => {
+        console.log(value);
         // addNewBook(values).then((res)=>{
         //     form.resetFields()
         // })
@@ -69,12 +74,12 @@ export default function RoleManagement() {
                     onChange={handlePage}
                     rowKey={(record) => { return record._id; }}
                 >
-                    <Column title="角色名称" dataIndex="accountName" />
+                    <Column title="角色名称" dataIndex="roleAccount" />
                     <Column
                         title="添加时间"
-                        dataIndex="address"
+                        dataIndex="roleDate"
                     />
-                    <Column title="授权人" dataIndex="accountName" />
+                    <Column title="授权人" dataIndex="roleAbout" />
                 </Table>
             </Card>
             <Modal
