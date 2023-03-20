@@ -10,8 +10,7 @@ const {
     getBooksList,
     addNewBook,
     searchBook,
-    getBookPage,
-    borrowBack
+    getBookPage
 } 
  = require("../module/manage/handleGoods")
 
@@ -75,10 +74,6 @@ router.get("/getBookPage", async (req,res)=>{
     res.send(result)
 })
 
-// 借阅归还
-router.post("/borrowBack", async (req,res)=>{
-    let result = await borrowBack(req.body);
-    res.send(result)
-})
+
 
 module.exports = router

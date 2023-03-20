@@ -94,13 +94,7 @@ const getBookPage = async ({current, pageSize}) => {
     return {code:1, value: "搜索成功", data:result}
 }
 
-// 借阅归还
-const borrowBack = async ({_id,status}) => {
-    let msg = status ? "归还成功" : "借阅成功"
-    await mongoBookList.updateOne({_id:_id},{status:!status})
-    let data = await mongoBookList.find({_id:_id})
-    return {code:1, value: msg, data:data}
-}
+
 
 module.exports = {
     addGoodAccount,
@@ -113,5 +107,4 @@ module.exports = {
     addNewBook,
     searchBook,
     getBookPage,
-    borrowBack
 }

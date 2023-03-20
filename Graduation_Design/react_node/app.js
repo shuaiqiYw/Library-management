@@ -10,6 +10,7 @@ app.use(express.json())
 //配置子路由
 app.use("/login",require("./router/login"))
 app.use("/goods",require("./router/goods"))
+app.use("/role",require("./router/role"))
 //数据库
 require("./mongodb/mongoose")
 
