@@ -1,7 +1,8 @@
 const express = require("express")
 const router = express.Router()
 const {
-    getRoleList
+    getRoleList,
+    addRole
 } = require("../module/manage/handleRole")
 
 
@@ -10,6 +11,11 @@ const {
 // 获取所有管理员列表
 router.get("/getRoleList", async (req,res)=>{
     let result = await getRoleList();
+    res.send(result)
+})
+
+router.post("/addRole", async (req,res)=>{
+    let result = await addRole();
     res.send(result)
 })
 
