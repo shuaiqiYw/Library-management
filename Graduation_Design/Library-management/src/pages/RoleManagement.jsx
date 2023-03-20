@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { Button, Card, Table, Modal, Form, Input } from 'antd'
-import { getRoleList } from '../API/AxiosURL'
+import { Button, Card, Table, Modal, Form, Input, message } from 'antd'
+import { getRoleList, addRole } from '../API/AxiosURL'
 
 
 const { Column } = Table
@@ -27,6 +27,9 @@ const initObj = {}
 
 export default function RoleManagement() {
 
+    const [messageApi, contextHolder] = message.useMessage();
+    const [roleAccount, setRoleAccount] = useState('')
+    const [rolePassword, setRolePassword] = useState('')
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [arr, setArr] = useState([])
     const [form] = Form.useForm();
@@ -55,9 +58,26 @@ export default function RoleManagement() {
     };
 
     // 确认
-    const handleOk = () => {
+    const handleOk = async () => {
+        if(!roleAccount || !rolePassword){
+            messageApi.open({
+                type: 'error',
+                content: '请输入完整！',
+            });
+            return;
+        }
+        // const param = {}
+        // let {data} = await addRole()
         setIsModalOpen(false);
     };
+
+    const handleRoleAccount = (e) => {
+        setRoleAccount(e.target.value)
+    }
+
+    const handleRolePassword = (e) => {
+        setRolePassword(e.target.value)
+    }
 
     const handlePage = (val) => {
         console.log(val);
@@ -82,6 +102,7 @@ export default function RoleManagement() {
                     <Column title="授权人" dataIndex="roleAbout" />
                 </Table>
             </Card>
+            {contextHolder}
             <Modal
                 title="添加管理员" 
                 open={isModalOpen} 
@@ -112,7 +133,7 @@ export default function RoleManagement() {
                             },
                         ]}
                     >
-                        <Input placeholder="请输入" />
+                        <Input placeholder="请输入" value={roleAccount} onChange={handleRoleAccount} />
                     </Form.Item>
 
                     <Form.Item 
@@ -125,7 +146,7 @@ export default function RoleManagement() {
                             },
                         ]}
                     >
-                        <Input placeholder="请输入" />
+                        <Input placeholder="请输入" value={rolePassword} onChange={handleRolePassword} />
                     </Form.Item>
                 </Form>
             </Modal>
