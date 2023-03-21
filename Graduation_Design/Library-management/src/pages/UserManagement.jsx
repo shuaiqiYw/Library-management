@@ -1,16 +1,25 @@
 import React, {useEffect, useState} from 'react'
-import { Button, Card, Table, Popconfirm } from 'antd'
+import { Button, Card, Table, Popconfirm, Modal } from 'antd'
 import "../assets/css/account.scss"
-import { Link } from "react-router-dom";
 import { getRoleList } from '../API/AxiosURL';
 
 
 
 const { Column } = Table
+let roleAccount = ""
+let rolePassword = ""
+let roleAbout = ""
+let roleDate = ""
 
 export default function UserManagement() {
 
     const [arr, setArr] = useState([])
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     const handlePage = (val) => {
         console.log(val);
@@ -23,6 +32,34 @@ export default function UserManagement() {
         })
     },[])
 
+    // 查看
+    const lookInfo = (val) => {
+        var date = new Date(val.roleDate);
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        m = m < 10 ? ('0' + m) : m;
+        var d = date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        var h = date.getHours();
+        var minute = date.getMinutes();
+        minute = minute < 10 ? ('0' + minute) : minute;
+        let time = y + '-' + m + '-' + d+' '+h+':'+minute; 
+        roleAccount = val.roleAccount
+        rolePassword = val.rolePassword
+        roleAbout = val.roleAbout
+        roleDate = time
+        setIsModalOpen(true);
+    }
+
+    // 编辑
+    const editInfo = () => {
+        
+    }
+
+    // 删除
+    const deleteInfo = () => {
+        
+    }
 
     return (
         <div className='goods'>
@@ -41,16 +78,26 @@ export default function UserManagement() {
                         render={(text,record,index)=>{
                             return (
                                 <>
-                                    <Button type="primary" style={{marginLeft: "10px"}}>查看</Button>
-                                    <Button type="primary" style={{marginLeft: "10px"}}><Link to="/home/role">编辑</Link></Button>
+                                    <Button type="primary" style={{marginLeft: "10px"}} onClick={()=>{lookInfo(record)}}>查看</Button>
+                                    <Button type="primary" style={{marginLeft: "10px"}} onClick={editInfo}>编辑</Button>
                                     <Popconfirm
                                         title="你确认删除该管理员吗？"
                                         okText="确认"
                                         cancelText="取消"
-                                        disabled={!record.status}
                                     >
-                                        <Button type="default" style={{marginLeft:"12px",color:"#8c8c8c",padding: "0px 10px"}}>删除</Button>
+                                        <Button type="default" style={{marginLeft:"12px",color:"#8c8c8c",padding: "0px 10px"}} onClick={deleteInfo}>删除</Button>
                                     </Popconfirm>
+                                    <Modal
+                                        title="查看信息" 
+                                        open={isModalOpen} 
+                                        onCancel={handleCancel}
+                                        footer={null}
+                                    >
+                                        <p>用户名：{roleAccount}</p>
+                                        <p>密码：{rolePassword}</p>
+                                        <p>授权人：{roleAbout}</p>
+                                        <p>授权时间：{roleDate}</p>
+                                    </Modal>
                                 </>
                             )
                         }}

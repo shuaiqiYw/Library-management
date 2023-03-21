@@ -12,7 +12,7 @@ export default function useHome() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     let [weat,setWeat] = useState({});
 
-    let loginName = useMemo(()=>getSession("key").loginName,[])
+    let loginName = useMemo(()=>getSession("key").roleAccount,[])
 
     // 请求天气与地址
     useEffect(()=>{
