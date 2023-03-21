@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { Button, Card, Table, Modal, Form, Input, message } from 'antd'
+import { Button, Card, Table, Modal, Form, Input } from 'antd'
 import { getRoleList, addRole } from '../API/AxiosURL'
 
 
@@ -27,7 +27,6 @@ const initObj = {}
 
 export default function RoleManagement() {
 
-    const [messageApi, contextHolder] = message.useMessage();
     const [roleAccount, setRoleAccount] = useState('')
     const [rolePassword, setRolePassword] = useState('')
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -53,7 +52,7 @@ export default function RoleManagement() {
     const onFinish = async (value) => {
         if(value.roleAccount&&value.rolePassword){
             let {data} = await addRole({roleAccount:value.roleAccount,rolePassword:value.rolePassword})
-            console.log(data);
+            setArr([...arr,data])
         }
         setIsModalOpen(false);
     };
@@ -99,7 +98,6 @@ export default function RoleManagement() {
                     <Column title="授权人" dataIndex="roleAbout" />
                 </Table>
             </Card>
-            {contextHolder}
             <Modal
                 title="添加管理员" 
                 open={isModalOpen} 
