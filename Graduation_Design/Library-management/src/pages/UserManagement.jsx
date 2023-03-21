@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { Button, Card, Table, Popconfirm, Modal } from 'antd'
 import "../assets/css/account.scss"
-import { getRoleList } from '../API/AxiosURL';
+import { getRoleList, deleteRole } from '../API/AxiosURL';
 
 
 
@@ -57,8 +57,10 @@ export default function UserManagement() {
     }
 
     // 删除
-    const deleteInfo = () => {
-        
+    const deleteInfo = (id) => {
+        deleteRole({id}).then(({data}) => {
+            setArr(data)
+        })
     }
 
     return (
@@ -84,8 +86,9 @@ export default function UserManagement() {
                                         title="你确认删除该管理员吗？"
                                         okText="确认"
                                         cancelText="取消"
+                                        onConfirm={()=>{deleteInfo(record._id)}}
                                     >
-                                        <Button type="default" style={{marginLeft:"12px",color:"#8c8c8c",padding: "0px 10px"}} onClick={deleteInfo}>删除</Button>
+                                        <Button type="default" style={{marginLeft:"12px",color:"#8c8c8c",padding: "0px 10px"}}>删除</Button>
                                     </Popconfirm>
                                     <Modal
                                         title="查看信息" 

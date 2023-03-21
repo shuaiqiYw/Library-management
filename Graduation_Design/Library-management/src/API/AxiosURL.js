@@ -39,6 +39,8 @@ export const getBookPage = (value) => createAxios("get", url+"/goods/getBookPage
 export const getRoleList = () => createAxios("get", url+"/role/getRoleList")
 // 角色管理 --添加管理员角色
 export const addRole = (value) => createAxios("post", url+"/role/addRole", value)
+// 角色管理 --删除管理员角色
+export const deleteRole = (value) => createAxios("post", url+"/role/deleteRole", value)
 
 
 
