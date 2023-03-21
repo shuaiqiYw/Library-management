@@ -2,7 +2,8 @@ const express = require("express")
 const router = express.Router()
 const {
     getRoleList,
-    addRole
+    addRole,
+    deleteRole
 } = require("../module/manage/handleRole")
 
 
@@ -16,6 +17,11 @@ router.get("/getRoleList", async (req,res)=>{
 
 router.post("/addRole", async (req,res)=>{
     let result = await addRole(req.body,req.session.adminRoot);
+    res.send(result)
+})
+
+router.post("/deleteRole", async (req,res)=>{
+    let result = await deleteRole(req.body);
     res.send(result)
 })
 

@@ -9,7 +9,6 @@ const getRoleList = async () => {
 
 // 添加管理员角色
 const addRole = async ({roleAccount,rolePassword},id) => {
-    console.log(id);
     let data = await mongoRole.create({
         roleAccount: roleAccount,
         rolePassword: rolePassword,
@@ -19,10 +18,18 @@ const addRole = async ({roleAccount,rolePassword},id) => {
     return {code: 1, data: data, value: "管理员列表添加成功!"}
 }
 
+// 删除管理员角色
+const deleteRole = async ({id}) => {
+    await mongoRole.deleteOne({_id:id})
+    let data = await mongoRole.find({})
+    return {code: 1, data: data, value: "管理员删除成功"}
+
+}
 
 
 
 module.exports = {
     getRoleList,
-    addRole
+    addRole,
+    deleteRole
 }
