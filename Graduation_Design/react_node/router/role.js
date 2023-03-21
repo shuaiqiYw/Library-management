@@ -15,7 +15,7 @@ router.get("/getRoleList", async (req,res)=>{
 })
 
 router.post("/addRole", async (req,res)=>{
-    let result = await addRole(req.body);
+    let result = await addRole(req.body,req.session.adminRoot);
     res.send(result)
 })
 

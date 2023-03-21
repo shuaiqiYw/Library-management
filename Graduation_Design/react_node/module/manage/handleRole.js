@@ -8,10 +8,14 @@ const getRoleList = async () => {
 }
 
 // 添加管理员角色
-const addRole = async ({roleAccount,rolePassword}) => {
-    console.log(roleAccount,rolePassword);
-    // let list = await mongoRole.find({})
-    return {code: 1, data: {}, value: "管理员列表添加成功!"}
+const addRole = async ({roleAccount,rolePassword},id) => {
+    let data = await mongoRole.create({
+        roleAccount: roleAccount,
+        rolePassword: rolePassword,
+        roleAbout: id.data.loginName,
+        roleDate: new Date()
+    })
+    return {code: 1, data: data, value: "管理员列表添加成功!"}
 }
 
 
