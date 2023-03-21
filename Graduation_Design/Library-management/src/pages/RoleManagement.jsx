@@ -45,39 +45,19 @@ export default function RoleManagement() {
         })
     },[]);
 
-    // 提交表单
-    const onFinish = (value) => {
-        console.log(value);
-        // addNewBook(values).then((res)=>{
-        //     form.resetFields()
-        // })
-    }
-
     const handleCancel = () => {
         setIsModalOpen(false);
     };
 
-    // 确认
-    const handleOk = async () => {
-        if(!roleAccount || !rolePassword){
-            messageApi.open({
-                type: 'error',
-                content: '请输入完整！',
-            });
-            return;
+    // 确认提交表单
+    const onFinish = async (value) => {
+        if(value.roleAccount&&value.rolePassword){
+            let {data} = await addRole({roleAccount:value.roleAccount,rolePassword:value.rolePassword})
+            console.log(data);
         }
-        // const param = {}
-        // let {data} = await addRole()
         setIsModalOpen(false);
     };
 
-    const handleRoleAccount = (e) => {
-        setRoleAccount(e.target.value)
-    }
-
-    const handleRolePassword = (e) => {
-        setRolePassword(e.target.value)
-    }
 
     const handlePage = (val) => {
         console.log(val);
@@ -98,6 +78,23 @@ export default function RoleManagement() {
                     <Column
                         title="添加时间"
                         dataIndex="roleDate"
+                        render={(text,record,index)=>{
+                            var date = new Date(record.roleDate);
+                            var y = date.getFullYear();
+                            var m = date.getMonth() + 1;
+                            m = m < 10 ? ('0' + m) : m;
+                            var d = date.getDate();
+                            d = d < 10 ? ('0' + d) : d;
+                            var h = date.getHours();
+                            var minute = date.getMinutes();
+                            minute = minute < 10 ? ('0' + minute) : minute;
+                            let time = y + '-' + m + '-' + d+' '+h+':'+minute; 
+                            return (
+                                <>
+                                    {time}
+                                </>
+                            )
+                        }}
                     />
                     <Column title="授权人" dataIndex="roleAbout" />
                 </Table>
@@ -107,14 +104,7 @@ export default function RoleManagement() {
                 title="添加管理员" 
                 open={isModalOpen} 
                 onCancel={handleCancel}
-                footer={[
-                    <Button key="back" onClick={handleCancel}>
-                        返回
-                    </Button>,
-                    <Button key="submit" type="primary" onClick={handleOk}>
-                        确定
-                    </Button>
-                ]}
+                footer={null}
             >
                 <Form
                     {...formItemLayout}
@@ -133,7 +123,7 @@ export default function RoleManagement() {
                             },
                         ]}
                     >
-                        <Input placeholder="请输入" value={roleAccount} onChange={handleRoleAccount} />
+                        <Input placeholder="请输入" value={roleAccount} />
                     </Form.Item>
 
                     <Form.Item 
@@ -146,7 +136,17 @@ export default function RoleManagement() {
                             },
                         ]}
                     >
-                        <Input placeholder="请输入" value={rolePassword} onChange={handleRolePassword} />
+                        <Input placeholder="请输入" value={rolePassword} />
+                    </Form.Item>
+                    <Form.Item
+                        wrapperCol={{
+                            offset: 10,
+                            span: 16,
+                        }}
+                    >
+                        <Button key="submit" type="primary" htmlType="submit">
+                            确定
+                        </Button>
                     </Form.Item>
                 </Form>
             </Modal>
