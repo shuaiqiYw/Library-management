@@ -101,6 +101,14 @@ const soldOut = async ({id}) => {
     return {code:1, value: "下架成功!", data:data}
 }
 
+// 编辑书籍
+const editOk = async ({classify, bookName, describe, id}) => {
+    let bol = await mongoBookList.findOne({classify: classify,bookName:bookName});
+    if(bol) return {code:0, value: "该分类下已有此书！请重新修改", data: {}}
+    await mongoBookList.updateOne({_id:id}, {classify: classify,bookName:bookName,describe:describe})
+    return {code:1, value: "编辑成功!", data:{}}
+}
+
 
 
 module.exports = {
@@ -114,5 +122,6 @@ module.exports = {
     addNewBook,
     searchBook,
     getBookPage,
-    soldOut
+    soldOut,
+    editOk
 }
