@@ -10,7 +10,8 @@ const {
     getBooksList,
     addNewBook,
     searchBook,
-    getBookPage
+    getBookPage,
+    soldOut
 } 
  = require("../module/manage/handleGoods")
 
@@ -74,6 +75,10 @@ router.get("/getBookPage", async (req,res)=>{
     res.send(result)
 })
 
-
+// 下架书籍
+router.post("/soldOut", async (req,res)=>{
+    let result = await soldOut(req.body);
+    res.send(result)
+})
 
 module.exports = router

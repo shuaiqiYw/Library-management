@@ -94,6 +94,13 @@ const getBookPage = async ({current, pageSize}) => {
     return {code:1, value: "搜索成功", data:result}
 }
 
+// 下架书籍
+const soldOut = async ({id}) => {
+    await mongoBookList.deleteOne({_id:id})
+    let data = await mongoBookList.find({})
+    return {code:1, value: "下架成功!", data:data}
+}
+
 
 
 module.exports = {
@@ -107,4 +114,5 @@ module.exports = {
     addNewBook,
     searchBook,
     getBookPage,
+    soldOut
 }
