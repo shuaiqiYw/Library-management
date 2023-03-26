@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Table, Button, Tag, Tooltip, Popconfirm } from 'antd';
-import { getBooksList, getBookPage, borrowBack  } from "../../API/AxiosURL"
+import { getBooksList, getBookPage, soldOut  } from "../../API/AxiosURL"
 import BorrowManagement from "../../Components/goods/BorrowManagement"
-// import "../../assets/css/borrowManagement.scss"
 import "../../assets/css/account.scss"
 import { Link } from "react-router-dom";
 import "../../router/index"
@@ -36,10 +35,11 @@ export default function GoodsAccount() {
         setBookList(result.data)
     }
 
-    // 借阅，归还 请求后视图更新
+    // 下架
     const confirmHandle = (record) => {
-        console.log(111);
-       
+        soldOut({id:record._id}).then(({data})=>{
+            setBookList(data);
+        })
     }
 
     return (

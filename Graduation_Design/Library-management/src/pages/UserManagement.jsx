@@ -71,6 +71,19 @@ export default function UserManagement() {
         })
     }
 
+    // 提交编辑
+    const commitEdit = () => {
+        // roleAccount = val.roleAccount
+        // rolePassword = val.rolePassword
+        // roleAbout = val.roleAbout
+        // roleDate = time
+        console.log(roleAccount);
+    }
+
+    const changeAccount = (e) => {
+        roleAccount = e.target.value
+    }
+
     return (
         <div className='goods'>
             <Card
@@ -124,14 +137,14 @@ export default function UserManagement() {
                         <Button key="back" onClick={handleCancel}>
                             返回
                         </Button>,
-                        <Button key="submit" type="primary">
+                        <Button key="submit" type="primary" onClick={commitEdit}>
                             确定
                         </Button>
                     </>
                 ]}
             >
                 <span>用户名：</span>
-                <Input placeholder="请输入" style={{margin:"10px 0"}} value={roleAccount}/>
+                <Input placeholder="请输入" style={{margin:"10px 0"}} value={roleAccount} onChange={changeAccount}/>
                 <span>密码：</span>
                 <Input.Password placeholder="请输入" style={{margin:"10px 0"}} value={rolePassword} iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}/>
                 <span>授权人：</span>
