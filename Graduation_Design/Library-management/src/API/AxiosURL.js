@@ -24,18 +24,21 @@ export const updateAccountName = (value) => createAxios("post", url+"/goods/upda
 // 分类-删除分类名
 export const delAccountName = (value) => createAxios("post", url+"/goods/deleteName",value)
 
-// 借阅管理-新增图书  获取所有分类
+// 信息管理-新增图书  获取所有分类
 export const getAcountAll = () => createAxios("get", url+"/goods/getAcountAll")
-// 借阅管理-新增图书  获取所有图书
+// 信息管理-新增图书  获取所有图书
 export const getBooksList = () => createAxios("get", url+"/goods/getBooksList")
-// 借阅管理-新增图书  提交
+// 信息管理-新增图书  提交
 export const addNewBook = (value) => createAxios("post", url+"/goods/addNewBook",value)
-// 借阅管理-搜索图书
+// 信息管理-搜索图书
 export const searchBook = (value) => createAxios("post", url+"/goods/searchBook",value)
-// 借阅管理- 分页
+// 信息管理- 分页
 export const getBookPage = (value) => createAxios("get", url+"/goods/getBookPage",value)
-// 借阅管理- 下架
+// 信息管理- 下架
 export const soldOut = (value) => createAxios("post", url+"/goods/soldOut",value)
+// 信息管理- 编辑
+export const editOk = (value) => createAxios("post", url+"/goods/editOk",value)
+
 
 // 角色管理 --获取所有管理员角色
 export const getRoleList = () => createAxios("get", url+"/role/getRoleList")

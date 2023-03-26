@@ -3,7 +3,7 @@ import { Card, Table, Button, Tag, Tooltip, Popconfirm } from 'antd';
 import { getBooksList, getBookPage, soldOut  } from "../../API/AxiosURL"
 import BorrowManagement from "../../Components/goods/BorrowManagement"
 import "../../assets/css/account.scss"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../router/index"
 
 const { Column } = Table;
@@ -11,6 +11,7 @@ let flag = true
 
 export default function GoodsAccount() {
 
+    const navigate = useNavigate();
     const [bookList,setBookList] = useState([])
     const [len,setLen] = useState()
 
@@ -40,6 +41,11 @@ export default function GoodsAccount() {
         soldOut({id:record._id}).then(({data})=>{
             setBookList(data);
         })
+    }
+
+    // 跳转编辑 
+    const editTo = (record) => {
+        navigate("/home/addBooks",{state:record})
     }
 
     return (
@@ -93,7 +99,9 @@ export default function GoodsAccount() {
                         render={(text, record, index)=>{
                             return (
                                 <>
-                                    <Button type="primary" style={{padding: "0px 10px"}}><Link to="/home/addBooks">编辑</Link></Button>
+                                    <Button type="primary" style={{padding: "0px 10px"}} onClick={()=>{editTo(record)}}>
+                                        编辑
+                                    </Button>
                                     <Popconfirm
                                         title="你确认下架此书吗？"
                                         description="下架之后读者将无法借阅此书！"

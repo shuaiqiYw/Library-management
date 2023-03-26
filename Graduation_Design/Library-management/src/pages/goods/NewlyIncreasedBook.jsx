@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { getAcountAll } from "../../API/AxiosURL";
-import { Link } from "react-router-dom";
-import { addNewBook } from "../../API/AxiosURL"
+import { Link, useLocation } from "react-router-dom";
+import { addNewBook, editOk } from "../../API/AxiosURL"
+import { useNavigate } from "react-router-dom";
 import "../../assets/css/account.scss"
 import "../../router/index"
 import {
@@ -31,32 +32,56 @@ const formItemLayout = {
     },
 };
 // 初始数据
-const initObj = {
+let initObj = {
     classify: "",
     bookName: "",
     describe: "",
 }
+
 export default function NewlyIncreasedBook() {
 
+    const {state} = useLocation()
+    const navigate = useNavigate()
     const [allClass,setallClass] = useState([])
     const [form] = Form.useForm();
 
-    useEffect(() => {
-        form.validateFields([]);
-    }, [form]);
+    if(state){
+        initObj = {
+            classify: state.classify,
+            bookName: state.bookName,
+            describe: state.describe
+        }
+    }
 
     // 请求所有分类
     useEffect(()=>{
         getAcountAll().then(({data})=>{
             setallClass(data)
         })
+
+        // 组件销毁时进行函数
+        return () => {
+            initObj = {
+                classify: "",
+                bookName: "",
+                describe: "",
+            }
+        }
     },[])
 
     // 提交表单
     const onFinish = (values) => {
-        addNewBook(values).then((res)=>{
-            form.resetFields()
-        })
+        if(state){  // 编辑提交
+            console.log('编辑提交');
+            editOk({...values,id:state._id}).then((res)=>{
+                if(res.code === 0) return;
+                navigate("/home/account")
+            })
+        }else{  // 正常添加
+            addNewBook(values).then((res)=>{
+                form.resetFields()
+            })
+        }
     }
 
     return (
