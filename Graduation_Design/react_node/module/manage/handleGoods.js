@@ -1,5 +1,7 @@
 const mongoAccount = require("../../mongodb/mongoAccount");
 const mongoBookList = require("../../mongodb/mongoBookList");
+const fs = require("fs")
+const path = require("path")
 
 // 添加分类
 const addGoodAccount = async ({valAccount},id) => {
@@ -112,8 +114,9 @@ const editOk = async ({classify, bookName, describe, id}) => {
 }
 
 // 上传图片
-const uploadPicture = async ({}) => {
-    return {code:1, value: "上传成功!", data:{}}
+const removeImg = ({imgUrl}) => {
+    let url = path.resolve(__dirname,"../../public/"+imgUrl)
+    fs.unlinkSync(url)
 }
 
 
@@ -131,5 +134,5 @@ module.exports = {
     getBookPage,
     soldOut,
     editOk,
-    uploadPicture
+    removeImg
 }

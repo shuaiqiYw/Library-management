@@ -14,6 +14,7 @@ const {
     getBookPage,
     soldOut,
     editOk,
+    removeImg
 } 
  = require("../module/manage/handleGoods")
 const upload = require("../module/plugin/multer") 
@@ -62,7 +63,6 @@ router.get("/getBooksList", async (req,res)=>{
 
 // 新增图书
 router.post("/addNewBook", async (req,res)=>{
-    console.log(req.body);
     let result = await addNewBook(req.body);
     res.send(result)
 })
@@ -105,6 +105,12 @@ router.post("/uploadPicture", (req,res)=>{
         // Everything went fine.
         return res.send({code:1, value: "上传成功!", data:{imgUrl}})
     })
+})
+
+// 删除图片
+router.post("/removeImg", (req,res)=>{
+    removeImg(req.body);
+    res.send({code:1,value:"图片删除成功",data:{}})
 })
 
 module.exports = router
