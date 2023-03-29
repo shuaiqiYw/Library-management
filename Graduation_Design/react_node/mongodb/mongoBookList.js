@@ -6,10 +6,8 @@ let schema = new mongoose.Schema(
         classify: String,
         bookName: String,
         describe: String,
-        status: {
-            type: Boolean,
-            default: false
-        }    // true借阅中   false可借阅
+        addDate: Date,
+        cover: Object
     }
 )
 

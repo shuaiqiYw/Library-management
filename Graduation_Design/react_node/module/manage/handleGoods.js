@@ -61,13 +61,15 @@ const getBooksList = async () => {
 }
 
 // 添加新图书
-const addNewBook = async ({classify, bookName, describe}) => {
+const addNewBook = async ({classify, bookName, describe, cover}) => {
     let bol = await mongoBookList.findOne({classify: classify,bookName:bookName});
     if(bol) return {code:0, value: "已存在", data: {}}
     let data = await mongoBookList.create({
         classify:classify,
         bookName:bookName,
-        describe:describe
+        describe:describe,
+        addDate: new Date(),
+        cover: cover
     })
     return {code:1, value: "添加图书成功", data: data}
 }
@@ -109,6 +111,11 @@ const editOk = async ({classify, bookName, describe, id}) => {
     return {code:1, value: "编辑成功!", data:{}}
 }
 
+// 上传图片
+const uploadPicture = async ({}) => {
+    return {code:1, value: "上传成功!", data:{}}
+}
+
 
 
 module.exports = {
@@ -123,5 +130,6 @@ module.exports = {
     searchBook,
     getBookPage,
     soldOut,
-    editOk
+    editOk,
+    uploadPicture
 }
