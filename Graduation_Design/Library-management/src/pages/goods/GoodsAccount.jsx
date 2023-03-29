@@ -73,28 +73,17 @@ export default function GoodsAccount() {
                             )
                         }}    
                     />
-                    <Column title="状态" dataIndex="status" 
+                    <Column title="添加时间" dataIndex="status" 
                         render={(text, record, index)=>{
-                            if(record.status){
-                                return (
-                                    <>
-                                        <Tag color="gold">
-                                            借阅中...
-                                        </Tag>
-                                    </>
-                                )
-                            }else{
-                                return (
-                                    <>
-                                        <Tag color="blue">
-                                            可借阅
-                                        </Tag>
-                                    </>
-                                )
-                            }
+                            return (
+                                <>
+                                    2023-03-26 16:50
+                                </>
+                            )
                         }}
                     >
                     </Column>
+                    <Column title="封面图片" dataIndex="classify" />
                     <Column title="操作" dataIndex="handle" 
                         render={(text, record, index)=>{
                             return (

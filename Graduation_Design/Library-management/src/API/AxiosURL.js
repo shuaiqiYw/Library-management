@@ -38,6 +38,8 @@ export const getBookPage = (value) => createAxios("get", url+"/goods/getBookPage
 export const soldOut = (value) => createAxios("post", url+"/goods/soldOut",value)
 // 信息管理- 编辑
 export const editOk = (value) => createAxios("post", url+"/goods/editOk",value)
+// 信息管理- 上传图片地址
+export const uploadPicture = url+"/goods/uploadPicture"
 
 
 // 角色管理 --获取所有管理员角色
