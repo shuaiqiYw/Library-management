@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAcountAll } from "../../API/AxiosURL";
 import { Link, useLocation } from "react-router-dom";
-import { addNewBook, editOk, uploadPicture } from "../../API/AxiosURL"
+import { addNewBook, editOk, uploadPicture, removeImg } from "../../API/AxiosURL"
 import { useNavigate } from "react-router-dom";
 import "../../assets/css/account.scss"
 import "../../router/index"
@@ -89,12 +89,11 @@ export default function NewlyIncreasedBook() {
         }
     }
 
-    // 上传图片发生变化时触发
-    const onChange = (file) => {
-        // let imgUrlArr = file.fileList.map(item => {
-        //     return item.response.data
-        // })
-
+    // 删除图片
+    const onChange = async (file) => {
+        let imgUrl = file.response.data.imgUrl
+        let data = await removeImg({imgUrl:imgUrl})
+        console.log(data);
     }
 
     return (
@@ -178,7 +177,7 @@ export default function NewlyIncreasedBook() {
                             accept='.jpg,.png'
                             name="file"
                             action={uploadPicture}
-                            onChange={onChange}
+                            onRemove={onChange}
                             multiple={true}
                             maxCount={5}
                         >

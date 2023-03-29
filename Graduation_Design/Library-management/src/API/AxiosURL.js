@@ -40,6 +40,8 @@ export const soldOut = (value) => createAxios("post", url+"/goods/soldOut",value
 export const editOk = (value) => createAxios("post", url+"/goods/editOk",value)
 // 信息管理- 上传图片地址
 export const uploadPicture = url+"/goods/uploadPicture"
+// 信息管理- 删除图片
+export const removeImg = (value) => createAxios("post", url+"/goods/removeImg", value)
 
 
 // 角色管理 --获取所有管理员角色

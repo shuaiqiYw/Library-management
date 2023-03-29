@@ -75,15 +75,29 @@ export default function GoodsAccount() {
                     />
                     <Column title="添加时间" dataIndex="status" 
                         render={(text, record, index)=>{
-                            return (
-                                <>
-                                    2023-03-26 16:50
-                                </>
-                            )
+                            var date = new Date(record.addDate);
+                            var y = date.getFullYear();
+                            var m = date.getMonth() + 1;
+                            m = m < 10 ? ('0' + m) : m;
+                            var d = date.getDate();
+                            d = d < 10 ? ('0' + d) : d;
+                            var h = date.getHours();
+                            var minute = date.getMinutes();
+                            minute = minute < 10 ? ('0' + minute) : minute;
+                            let time = y + '-' + m + '-' + d + ' ' + h + ':' + minute;
+                            return (<>{time}</>)
                         }}
                     >
                     </Column>
-                    <Column title="封面图片" dataIndex="classify" />
+                    <Column title="封面图片" dataIndex="classify" 
+                        render={(text, record, index)=>{
+                            return (
+                                <>
+                                    {/* <img src={record.cover[0].imgUrl} alt="" /> */}
+                                </>
+                            )
+                        }}
+                    />
                     <Column title="操作" dataIndex="handle" 
                         render={(text, record, index)=>{
                             return (
