@@ -1,7 +1,7 @@
 import createAxios from './Axios'
 
 // 请求配置默认值
-let url = 'http://localhost:8080'
+export let url = 'http://localhost:8080'
 
 
 // 登录

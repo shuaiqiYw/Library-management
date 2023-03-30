@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Card, Table, Button, Tag, Tooltip, Popconfirm } from 'antd';
-import { getBooksList, getBookPage, soldOut  } from "../../API/AxiosURL"
+import { Card, Table, Button, Tooltip, Popconfirm, Image } from 'antd';
+import { getBooksList, getBookPage, soldOut, removeImg, url } from "../../API/AxiosURL"
 import BorrowManagement from "../../Components/goods/BorrowManagement"
 import "../../assets/css/account.scss"
 import { Link, useNavigate } from "react-router-dom";
@@ -38,6 +38,8 @@ export default function GoodsAccount() {
 
     // 下架
     const confirmHandle = (record) => {
+        let arr = record.cover
+        removeImg({arr})
         soldOut({id:record._id}).then(({data})=>{
             setBookList(data);
         })
@@ -73,7 +75,7 @@ export default function GoodsAccount() {
                             )
                         }}    
                     />
-                    <Column title="添加时间" dataIndex="status" 
+                    <Column title="添加时间" dataIndex="addDate" 
                         render={(text, record, index)=>{
                             var date = new Date(record.addDate);
                             var y = date.getFullYear();
@@ -89,13 +91,10 @@ export default function GoodsAccount() {
                         }}
                     >
                     </Column>
-                    <Column title="封面图片" dataIndex="classify" 
+                    <Column title="封面图片" dataIndex="cover" 
                         render={(text, record, index)=>{
-                            return (
-                                <>
-                                    {/* <img src={record.cover[0].imgUrl} alt="" /> */}
-                                </>
-                            )
+                            console.log(url+record?.cover[0]?.imgUrl);
+                            return <Image width={50} height={70} src={url+"/"+record?.cover[0]?.imgUrl}></Image>
                         }}
                     />
                     <Column title="操作" dataIndex="handle" 
@@ -110,7 +109,6 @@ export default function GoodsAccount() {
                                         description="下架之后读者将无法借阅此书！"
                                         okText="确认"
                                         cancelText="取消"
-                                        disabled={!record.status}
                                         onConfirm={() => confirmHandle(record)}
                                     >
                                         <Button type="default" style={{marginLeft:"12px",color:"#8c8c8c",padding: "0px 10px"}}>下架</Button>

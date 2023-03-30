@@ -38,6 +38,7 @@ let initObj = {
     classify: "",
     bookName: "",
     describe: "",
+    cover: ""
 }
 
 export default function NewlyIncreasedBook() {
@@ -51,7 +52,8 @@ export default function NewlyIncreasedBook() {
         initObj = {
             classify: state.classify,
             bookName: state.bookName,
-            describe: state.describe
+            describe: state.describe,
+            cover: state.cover
         }
     }
 
@@ -63,11 +65,14 @@ export default function NewlyIncreasedBook() {
 
         // 组件销毁时进行函数
         return () => {
-            initObj = {
-                classify: "",
-                bookName: "",
-                describe: "",
+            let val = form.getFieldValue("cover")
+            if(val){
+                let arr = val.fileList.map(item => {
+                    return item.response.data
+                })
+                removeImg({arr})
             }
+            form.resetFields()
         }
     }, [])
 
@@ -92,8 +97,7 @@ export default function NewlyIncreasedBook() {
     // 删除图片
     const onChange = async (file) => {
         let imgUrl = file.response.data.imgUrl
-        let data = await removeImg({imgUrl:imgUrl})
-        console.log(data);
+        await removeImg({imgUrl:imgUrl})
     }
 
     return (
@@ -163,7 +167,7 @@ export default function NewlyIncreasedBook() {
                     </Form.Item>
 
                     <Form.Item
-                    valuePropName="file"
+                        valuePropName="file"
                         name="cover"
                         label="图书封面"
                         rules={[
