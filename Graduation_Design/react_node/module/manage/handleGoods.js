@@ -114,9 +114,17 @@ const editOk = async ({classify, bookName, describe, id}) => {
 }
 
 // 上传图片
-const removeImg = ({imgUrl}) => {
-    let url = path.resolve(__dirname,"../../public/"+imgUrl)
-    fs.unlinkSync(url)
+const removeImg = (imgArr) => {
+    console.log(imgArr);
+    if(Array.isArray(imgArr.arr)){
+        imgArr.arr.forEach(item => {
+            let url = path.resolve(__dirname,"../../public/"+item.imgUrl)
+            fs.unlink(url,()=>{})
+        });
+    }else{
+        let url = path.resolve(__dirname,"../../public/"+imgArr.imgUrl)
+        fs.unlinkSync(url)
+    }
 }
 
 
