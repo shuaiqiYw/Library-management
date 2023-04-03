@@ -47,7 +47,7 @@ const route = [
     },
     {
         path: "*",
-        element: <Redirect to="/home/page" />
+        element: <Redirect to="/home/good" />
     }
 ]
 

@@ -94,7 +94,7 @@ export default function GoodsAccount() {
                     <Column title="封面图片" dataIndex="cover" 
                         render={(text, record, index)=>{
                             console.log(url+record?.cover[0]?.imgUrl);
-                            return <Image width={50} height={70} src={url+"/"+record?.cover[0]?.imgUrl}></Image>
+                            return <Image width={50} height={50} src={url+"/"+record?.cover[0]?.imgUrl}></Image>
                         }}
                     />
                     <Column title="操作" dataIndex="handle" 

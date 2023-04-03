@@ -50,6 +50,8 @@ export default function SiderContent() {
                 mode="inline"
                 theme="dark"
                 items={items}
+                defaultOpenKeys={['sub1']}
+                defaultSelectedKeys={['4']}
             />
         </div>
     )

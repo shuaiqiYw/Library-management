@@ -17,9 +17,9 @@ function App() {
           navigate("/")
         }else{
           setSession("key",data.data.data)
-          navigate("/home/page",{
+          navigate("/home/good",{
             state:{
-              name:"首页"
+              name:"图书分类"
             }
           })
         }
