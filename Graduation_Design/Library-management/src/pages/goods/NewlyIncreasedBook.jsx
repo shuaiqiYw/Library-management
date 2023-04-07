@@ -38,7 +38,7 @@ let initObj = {
     classify: "",
     bookName: "",
     describe: "",
-    cover: ""
+    cover: []
 }
 
 export default function NewlyIncreasedBook() {
@@ -48,12 +48,24 @@ export default function NewlyIncreasedBook() {
     const [allClass, setallClass] = useState([])
     const [form] = Form.useForm();
 
-    if (state) {
+    if (state!==null) {
         initObj = {
             classify: state.classify,
             bookName: state.bookName,
             describe: state.describe,
-            cover: state.cover
+            cover: state.cover.map((item,index)=>{
+                return {
+                    uid: index,
+                    name: item.imgUrl
+                }
+            })
+        }
+    }else{
+        initObj = {
+            classify: "",
+            bookName: "",
+            describe: "",
+            cover: []
         }
     }
 
@@ -62,11 +74,10 @@ export default function NewlyIncreasedBook() {
         getAcountAll().then(({ data }) => {
             setallClass(data)
         })
-
         // 组件销毁时进行函数
         return () => {
             let val = form.getFieldValue("cover")
-            if(val){
+            if(Object.prototype.toString.call(val).indexOf('Object')>-1){
                 let arr = val.fileList.map(item => {
                     return item.response.data
                 })
@@ -79,7 +90,6 @@ export default function NewlyIncreasedBook() {
     // 提交表单
     const onFinish = (values) => {
         if (state) {  // 编辑提交
-            console.log('编辑提交');
             editOk({ ...values, id: state._id }).then((res) => {
                 if (res.code === 0) return;
                 navigate("/home/account")
@@ -96,7 +106,12 @@ export default function NewlyIncreasedBook() {
 
     // 删除图片
     const onChange = async (file) => {
-        let imgUrl = file.response.data.imgUrl
+        let imgUrl = ''
+        if(state){
+            imgUrl = file.name
+        }else{
+            imgUrl = file.response.data.imgUrl
+        }
         await removeImg({imgUrl:imgUrl})
     }
 
@@ -184,13 +199,14 @@ export default function NewlyIncreasedBook() {
                             onRemove={onChange}
                             multiple={true}
                             maxCount={5}
+                            defaultFileList={initObj.cover}
                         >
                             <Button icon={<UploadOutlined />}>Upload</Button>
                         </Upload>
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 11, span: 16 }}>
-                        <Button type="primary" htmlType="submit" style={{ width: "200px" }}>
+                        <Button type="primary" htmlType="submit" style={{ width: "200px", marginTop: "60px" }}>
                             提交
                         </Button>
                     </Form.Item>

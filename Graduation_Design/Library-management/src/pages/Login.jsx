@@ -52,7 +52,7 @@ export default function Login() {
             setSession("key",res.data)
             if(res.code){
                 // 跳转主页
-                navigate("/home")
+                navigate("/home/good")
             }
         }
     };

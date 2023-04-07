@@ -29,6 +29,7 @@ export default function Home() {
         <div className='home'>
             <Layout>
                 <Sider width={"256"}>
+                    <div style={{height:"32px",margin:"16px",fontSize:"22px",paddingLeft:"12px",color:"rgba(255, 255, 255, 0.6)"}}>图书管理系统</div>
                     <SiderContent></SiderContent>
                 </Sider>
                 <Layout>
