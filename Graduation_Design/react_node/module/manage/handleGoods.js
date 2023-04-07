@@ -65,7 +65,7 @@ const getBooksList = async () => {
 // 添加新图书
 const addNewBook = async ({classify, bookName, describe, cover}) => {
     let bol = await mongoBookList.findOne({classify: classify,bookName:bookName});
-    if(bol) return {code:0, value: "已存在", data: {}}
+    if(bol) return {code:0, value: "已存在该图书！请重新添加！", data: {}}
     let data = await mongoBookList.create({
         classify:classify,
         bookName:bookName,
@@ -106,16 +106,13 @@ const soldOut = async ({id}) => {
 }
 
 // 编辑书籍
-const editOk = async ({classify, bookName, describe, id}) => {
-    let bol = await mongoBookList.findOne({classify: classify,bookName:bookName});
-    if(bol) return {code:0, value: "该分类下已有此书！请重新修改", data: {}}
-    await mongoBookList.updateOne({_id:id}, {classify: classify,bookName:bookName,describe:describe})
+const editOk = async ({classify, bookName, describe, cover, id}) => {
+    await mongoBookList.updateOne({_id:id}, {classify: classify,bookName:bookName,describe:describe,cover:cover})
     return {code:1, value: "编辑成功!", data:{}}
 }
 
 // 上传图片
 const removeImg = (imgArr) => {
-    console.log(imgArr);
     if(Array.isArray(imgArr.arr)){
         imgArr.arr.forEach(item => {
             let url = path.resolve(__dirname,"../../public/"+item.imgUrl)
