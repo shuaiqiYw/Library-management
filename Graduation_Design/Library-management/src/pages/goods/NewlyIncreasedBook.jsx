@@ -76,20 +76,28 @@ export default function NewlyIncreasedBook() {
         })
         // 组件销毁时进行函数
         return () => {
-            let val = form.getFieldValue("cover")
-            if(Object.prototype.toString.call(val).indexOf('Object')>-1){
-                let arr = val.fileList.map(item => {
-                    return item.response.data
-                })
-                removeImg({arr})
-            }
             form.resetFields()
         }
     }, [])
 
+    // 返回借阅管理
+    const black = ()=>{
+        let val = form.getFieldValue("cover")
+        if(Object.prototype.toString.call(val).indexOf('Object')>-1){
+            let arr = val.fileList.map(item => {
+                return item.response.data
+            })
+            removeImg({arr})
+        }
+    }
+
     // 提交表单
     const onFinish = (values) => {
         if (state) {  // 编辑提交
+            values.cover = values.cover.fileList.map(item => {
+                return item.response.data
+            })
+            console.log(values);
             editOk({ ...values, id: state._id }).then((res) => {
                 if (res.code === 0) return;
                 navigate("/home/account")
@@ -119,7 +127,7 @@ export default function NewlyIncreasedBook() {
         <div className="goods">
             <Card
                 size="small"
-                extra={<Button type="primary"><Link to="/home/account">返回借阅管理</Link></Button>}
+                extra={<Button type="primary" onClick={black}><Link to="/home/account">返回借阅管理</Link></Button>}
             >
                 <Form
                     {...formItemLayout}
@@ -197,8 +205,8 @@ export default function NewlyIncreasedBook() {
                             name="file"
                             action={uploadPicture}
                             onRemove={onChange}
-                            multiple={true}
-                            maxCount={5}
+                            multiple={false}
+                            maxCount={1}
                             defaultFileList={initObj.cover}
                         >
                             <Button icon={<UploadOutlined />}>Upload</Button>
