@@ -50,6 +50,8 @@ export const getRoleList = () => createAxios("get", url+"/role/getRoleList")
 export const addRole = (value) => createAxios("post", url+"/role/addRole", value)
 // 角色管理 --删除管理员角色
 export const deleteRole = (value) => createAxios("post", url+"/role/deleteRole", value)
+// 角色管理 --编辑管理员角色
+export const editRole = (value) => createAxios("post", url+"/role/editRole", value)
 
 
 

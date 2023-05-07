@@ -134,7 +134,7 @@ export default function RoleManagement() {
                             },
                         ]}
                     >
-                        <Input placeholder="请输入" value={rolePassword} />
+                        <Input placeholder="请输入" value={rolePassword} type='password' />
                     </Form.Item>
                     <Form.Item
                         wrapperCol={{

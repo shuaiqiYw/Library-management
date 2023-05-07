@@ -86,6 +86,7 @@ export default function GoodsAcca() {
                                         <Popconfirm
                                             title={<AmendClassifyName handleView={handleView.bind(null,val)}/>}
                                             trigger="click"
+                                            showCancel={false}
                                         >
                                             修改分类名
                                         </Popconfirm>

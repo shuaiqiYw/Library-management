@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { EyeTwoTone, EyeInvisibleOutlined } from '@ant-design/icons';
 import { Button, Card, Table, Popconfirm, Modal, Input } from 'antd'
 import "../assets/css/account.scss"
-import { getRoleList, deleteRole } from '../API/AxiosURL';
+import { getRoleList, deleteRole, editRole } from '../API/AxiosURL';
 
 
 
 const { Column } = Table
-let roleAccount = ""
-let rolePassword = ""
 let roleAbout = ""
 let roleDate = ""
 
@@ -17,6 +15,9 @@ export default function UserManagement() {
     const [arr, setArr] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalOpenOfEdit, setIsModalOpenOfEdit] = useState(false)
+    const [roleAccount, setRoleAccount] = useState("")
+    const [rolePassword, setRolePassword] = useState("")
+    const [infoId, setInfoId] = useState("")
 
     const handleCancel = () => {
         setIsModalOpen(false);
@@ -24,12 +25,11 @@ export default function UserManagement() {
     };
 
     const handlePage = (val) => {
-        console.log(val);
+        // console.log(val);
     }
 
     useEffect(() => {
         getRoleList().then(({ data }) => {
-            console.log(data);
             setArr(data)
         })
     }, [])
@@ -46,8 +46,8 @@ export default function UserManagement() {
         var minute = date.getMinutes();
         minute = minute < 10 ? ('0' + minute) : minute;
         let time = y + '-' + m + '-' + d + ' ' + h + ':' + minute;
-        roleAccount = val.roleAccount
-        rolePassword = val.rolePassword
+        setRoleAccount(val.roleAccount)
+        setRolePassword(val.rolePassword)
         roleAbout = val.roleAbout
         roleDate = time
     }
@@ -60,6 +60,7 @@ export default function UserManagement() {
 
     // 编辑
     const editInfo = (val) => {
+        setInfoId(val._id)
         assignment(val)
         setIsModalOpenOfEdit(true)
     }
@@ -73,15 +74,21 @@ export default function UserManagement() {
 
     // 提交编辑
     const commitEdit = () => {
-        // roleAccount = val.roleAccount
-        // rolePassword = val.rolePassword
-        // roleAbout = val.roleAbout
-        // roleDate = time
-        console.log(roleAccount);
+         editRole({
+            infoId,
+            roleAccount,
+            rolePassword
+        }).then(res => {
+            setIsModalOpenOfEdit(false)
+        })
     }
 
     const changeAccount = (e) => {
-        roleAccount = e.target.value
+        setRoleAccount(e.target.value)
+    }
+
+    const changePsd = (e) => {
+        setRolePassword(e.target.value)
     }
 
     return (
@@ -146,7 +153,7 @@ export default function UserManagement() {
                 <span>用户名：</span>
                 <Input placeholder="请输入" style={{margin:"10px 0"}} value={roleAccount} onChange={changeAccount}/>
                 <span>密码：</span>
-                <Input.Password placeholder="请输入" style={{margin:"10px 0"}} value={rolePassword} iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}/>
+                <Input.Password placeholder="请输入" style={{margin:"10px 0"}} value={rolePassword} onChange={changePsd} iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}/>
                 <span>授权人：</span>
                 <Input style={{margin:"10px 0"}} disabled={true} value={roleAbout}/>
                 <span>授权时间：</span>

@@ -26,10 +26,17 @@ const deleteRole = async ({id}) => {
 
 }
 
+// 编辑管理员角色
+const editRole = async ({infoId, roleAccount, rolePassword}) => {
+    await mongoRole.updateOne({_id:infoId},{roleAccount:roleAccount,rolePassword:rolePassword})
+    return {code: 1, data: {}, value: "编辑成功"}
+
+}
 
 
 module.exports = {
     getRoleList,
     addRole,
-    deleteRole
+    deleteRole,
+    editRole
 }
